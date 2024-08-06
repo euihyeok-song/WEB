@@ -16,7 +16,8 @@ public class QueryString extends HttpServlet {
     *       Controller(servlet)가 하는 일 => 1. 입력값 받아오기 2. 받아온 입력을 가공처리 */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /* 설명. name(key)=홍길동(value)&age(key)=12(value)와 같은 형식으로 들어와서 &을 구분자로 짤라서 key만 받아옴ㄴ*/
+        /* 설명. name(key)=홍길동(value)&age(key)=12(value)와 같은 형식으로 들어와서 &을 구분자로 짤라서 key만 받아옴
+        *       getParameter는 반환형을 String으로 받아옴 */
         String name = req.getParameter("name");
         System.out.println("name = " + name);
         
