@@ -1,6 +1,5 @@
 package com.ohgiraffers.section03.annotationconfig.subsection01.java;
 
-import com.ohgiraffers.section01.javaconfig.ContextConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

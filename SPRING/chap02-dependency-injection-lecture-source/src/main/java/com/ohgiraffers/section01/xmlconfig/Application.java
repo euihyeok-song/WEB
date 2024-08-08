@@ -16,5 +16,5 @@ public class Application {
     }
 }
 
-/* 설명. Account account = new PersonalAccount(20,"12313"); 에서 =와 new PersonalAccount(20,"12313");를
+/* 설명. Account account = new PersonalAccount(20,"12313"); 에서 = 와 new PersonalAccount(20,"12313");를
 *       설정파일(spring-context.xml)로 대신 처리한다.*/

@@ -3,7 +3,7 @@ package com.ohgiraffers.common;
 import lombok.*;
 
 /* 설명. 실제 서비스 단계에서는 @Data는 블필요한 것들이 많이 만들어짐으로, 권장 X*/
-//@Data
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
