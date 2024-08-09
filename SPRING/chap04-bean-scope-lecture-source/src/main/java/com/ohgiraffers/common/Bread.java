@@ -18,6 +18,7 @@ public class Bread extends Product{
     public String toString() {
         return "Bread{" +
                 "bakedDate=" + bakedDate +
-                '}';
+                '}'+
+                super.toString();
     }
 }

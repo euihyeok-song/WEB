@@ -11,10 +11,10 @@ import java.util.List;
 @Service("bookServiceConstructor")
 public class BookService {
 
-    private BookDAO bookDAO;
+    private final BookDAO bookDAO;
 
-    public BookService() {
-    }
+//    public BookService() {
+//    }
 
     /* 설명.
         의존성 DI - 생성자 주입 방식 => 가장 추천

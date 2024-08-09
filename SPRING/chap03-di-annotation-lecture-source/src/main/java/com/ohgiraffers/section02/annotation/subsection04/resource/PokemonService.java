@@ -10,7 +10,7 @@ import java.util.List;
 public class PokemonService {
 
     /* 설명. 라이브러리를 다운 받아야 사용 가능 (build.gradle에 추가) - DI이다.
-    *       @Primary보다 우선순위가 더 높다.
+    *       가장 먼저 출력해줄 것을 정해주는 Annotation
     *       1. Pokemon으로 처리시 */
     @Resource(name="charmander")
     private Pokemon pokemon;

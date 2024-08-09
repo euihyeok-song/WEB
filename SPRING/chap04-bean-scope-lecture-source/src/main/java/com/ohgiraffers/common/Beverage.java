@@ -15,6 +15,7 @@ public class Beverage extends Product {
     public String toString() {
         return "Beverage{" +
                 "capacity=" + capacity +
-                '}';
+                '}'+
+                super.toString();
     }
 }
