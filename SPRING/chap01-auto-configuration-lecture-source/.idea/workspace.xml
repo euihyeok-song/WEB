@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9af410a5-075f-406e-81b7-3a26c08c9848" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ohgiraffers/chap01/Chap01AutoConfigurationLectureSourceApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ohgiraffers/chap01/SpringConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ohgiraffers/chap01/Chap01AutoConfigurationLectureSourceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SPRINGBOOT/chap02-request-mapping-lecutre-source/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../SPRINGBOOT/chap02-request-mapping-lecutre-source/src/main/resources/static/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +115,7 @@
       <option name="presentableId" value="Default" />
       <updated>1723431026590</updated>
       <workItem from="1723431027630" duration="2413000" />
-      <workItem from="1723433451403" duration="2515000" />
+      <workItem from="1723433451403" duration="2870000" />
     </task>
     <servers />
   </component>
