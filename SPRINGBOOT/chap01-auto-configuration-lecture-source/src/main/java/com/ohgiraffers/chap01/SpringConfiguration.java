@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SpringConfiguration {
-    /* 설명. application.properties - 우선순위 때문에 properties는 지움(properties가 더 높음) -> yml파일 사용*/
+    /* 설명. application.properties - 우선순위 때문에 properties는 지움 -> yml파일 사용*/
     @Value("${test.value}")
     public String value;
 
@@ -25,4 +25,6 @@ public class SpringConfiguration {
 
         return new Object();
     }
+
+
 }

@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9af410a5-075f-406e-81b7-3a26c08c9848" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../SPRINGBOOT/chap02-request-mapping-lecutre-source/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../SPRINGBOOT/chap02-request-mapping-lecutre-source/src/main/resources/static/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="9af410a5-075f-406e-81b7-3a26c08c9848" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -116,6 +114,7 @@
       <updated>1723431026590</updated>
       <workItem from="1723431027630" duration="2413000" />
       <workItem from="1723433451403" duration="2870000" />
+      <workItem from="1723446469976" duration="67000" />
     </task>
     <servers />
   </component>

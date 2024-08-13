@@ -18,7 +18,9 @@ public class Application {
          *               해석이 어려워 여러가지 문제를 야기할 수 있다.
          * */
 
-        /* 설명. 1. Class 타입의 Class 메타정보 추출 */
+        /* 설명. 1. Class 타입의 Class 메타정보 추출 - 객체로써 Class의 타입을 가져올 수 있다.
+        *       .class를 통해서 reflection을 사용 가능하다.
+        * */
         Class class1 = Account.class;
         System.out.println("class1= " + class1);
 
