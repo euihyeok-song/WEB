@@ -17,7 +17,7 @@ import java.util.Map;
 @SessionAttributes("id")
 public class FirstContoller {
 
-    /* 설명. 반환 형이 */
+    /* 설명. 반환 형이 void인 핸들러 메소드는 요청 경로 자체가 view의 경로 및 이름을 변환한 것으로 바로 해석 된다.*/
 //    @GetMapping("regist")               // 위의 @RequestMapping 덕분에 /first를 안적어도 OK
 //    public String regist(){
 //        return "/first/regist";           // templates 파일 내부의 first파일의 regist.html로 가라

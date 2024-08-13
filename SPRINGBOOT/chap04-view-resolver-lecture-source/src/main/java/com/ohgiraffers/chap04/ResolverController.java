@@ -25,7 +25,7 @@ public class ResolverController {
         return "redirect:/";
     }
 
-    /* 설명. 스프리의 RedirectAttribute라는 객체에 attr을 담으면 리다이렉트 시에도 값(전달할 상태)이 유지된다. */
+    /* 설명. 스프링의 RedirectAttribute라는 객체에 attr을 담으면 리다이렉트 시에도 값(전달할 상태)이 유지된다. */
     @GetMapping("string-redirect-attr")
     public String stringRedirectFlashAttribute(RedirectAttributes rttr){
         rttr.addFlashAttribute("flashMessage1","리다이렉트 attr 사용하여 redirect..");
