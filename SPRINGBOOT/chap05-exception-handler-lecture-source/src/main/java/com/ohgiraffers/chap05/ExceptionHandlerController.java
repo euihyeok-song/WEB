@@ -49,13 +49,13 @@ public class ExceptionHandlerController {
     public String userExceptionTest() throws MemberRegistException{
 
         if(true){
-            throw new MemberRegistException("당신은 안된다니깐??")
+            throw new MemberRegistException("당신은 안된다니깐??");
         }
 
         return "/";
     }
 
-    /* 설명. 예외처리 핸들러에서도 Model과 발생한 예외를 */
+    /* 설명. 예외 처리 핸들러에서도 Model과 발생한 예외를 활용할 수 있다. */
     @ExceptionHandler(MemberRegistException.class)
     public String userExceptionHandler(Model model, MemberRegistException exception){
         model.addAttribute("userException",exception);
