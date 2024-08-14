@@ -29,9 +29,11 @@ public class Application {
                                     new PooledDataSource(driver,url,user,password)
                             );
 
-        /* 설명. 환경설정이 포함된 설계도(Builder들이 Factroy를 만들기 위한 설계도 */
+        /* 설명. 환경설정이 포함된 설계도(Builder들이 Factory를 만들기 위한 설계도  - JDBC 연결 (DB 연결)*/
         Configuration configuration = new Configuration(environment);
-        /* 설명. Query에 해당하는 설계도인 (Mapper.xml)정보를 설계도에 넣어줘야함*/
+        /* 설명. Query에 해당하는 설계도인 (Mapper.xml)정보를 설계도에 넣어줘야함 - Query 연결 */
+        configuration.addMapper(Mapper.class);
+        configuration.addMapper(Mapper.class);
         configuration.addMapper(Mapper.class);
 
         /* 설명. 위의 설계도로 Builder들이 Factory를 만들고 버려짐 - Factory Pattern */

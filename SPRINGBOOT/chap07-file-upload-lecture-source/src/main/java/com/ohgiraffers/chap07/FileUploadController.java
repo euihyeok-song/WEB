@@ -22,7 +22,6 @@ public class FileUploadController {
 
     @Autowired
     public FileUploadController(ResourceLoader resourceLoader) {
-
         this.resourceLoader = resourceLoader;
     }
 
@@ -53,6 +52,7 @@ public class FileUploadController {
         String ext = originFileName.substring(originFileName.lastIndexOf("."));     // 확장자 자르기
         System.out.println("ext = " + ext);
 
+        /* 설명. 파일 이름이 겹칠 수 있는것을 대비하여 UUID를 사용하여 random하게 지정 */
         String saveName = UUID.randomUUID().toString().replace("-","") + ext; // random이용 (저장할 이름)
         System.out.println("saveName = " + saveName);
 
