@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MenuMapper">         <!-- Interface와 동일하게 설정 -->
+
+    <!-- 아래의 select를 통해 받은 쿼리 문을 type의 MenuDTO의 각 변수들과 매칭시켜주는 과정 -->
+    <resultMap id="menuResultMap" type="com.ohgiraffers.section01.xmlconfig.MenuDTO">
+        <id property="menuCode" column="MENU_CODE"/>
+        <result property="menuName" column="MENU_NAME"/>
+        <result property="menuPrice" column="MENU_PRICE"/>
+        <result property="categoryCode" column="CATEGORY_CODE"/>
+        <result property="orderableStatus" column="ORDERABLE_STATUS"/>
+    </resultMap>
+
+    <select id="selectAllMenus" resultMap="menuResultMap"> <!-- resultMap은 위의 Mapping한 값을 결과로 내겠다는 의미 -->
+        SELECT
+               MENU_CODE
+             , MENU_NAME
+             , MENU_PRICE
+             , CATEGORY_CODE
+             , ORDERABLE_STATUS
+          FROM TBL_MENU
+    </select>
+</mapper>
