@@ -1,4 +1,4 @@
-package com.ohgiraffers.section01.xmlconfig;
+package com.ohgiraffers.section02.javaconfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -91,5 +91,4 @@ public class Application {
 
         return parameter;
     }
-
 }

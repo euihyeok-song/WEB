@@ -28,4 +28,64 @@ public class MenuService {
 
         return menuList;
     }
+
+    public MenuDTO findMenuByMenuCode(int menuCode) {
+        SqlSession sqlSession = getSqlSession();
+
+        /* 설명. sqlSession을 통해서 Query를 실어서 보내되 구멍이 존재하고 그 구멍을 menuCode로 메꿔서 보내라는 의미*/
+        MenuDTO menu = menuDAO.selectMenuByMenuCode(sqlSession, menuCode);
+
+        sqlSession.close();
+
+        return menu;
+    }
+
+    public boolean registMenu(MenuDTO menu) {
+        SqlSession sqlSession = getSqlSession();
+
+        int result = menuDAO.insertMenu(sqlSession,menu);
+
+        /* 설명. 트랜잭션 처리 */
+        if(result > 0){
+            sqlSession.commit();
+        } else{
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+
+        return result > 0 ? true : false;
+    }
+
+    public boolean modifyMenu(MenuDTO menu) {
+        SqlSession sqlSession = getSqlSession();
+
+        int result = menuDAO.updateMenu(sqlSession, menu);
+
+        /* 설명. 트랜잭션 처리 */
+        if(result > 0){
+            sqlSession.commit();
+        } else{
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+
+        return result > 0 ? true: false;
+    }
+
+    public boolean removeMenu(int menuCode) {
+        SqlSession sqlSession = getSqlSession();
+
+        int result = menuDAO.deleteMenu(sqlSession, menuCode);
+
+        if(result > 0) {
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+        return result > 0 ? true : false;
+    }
 }
