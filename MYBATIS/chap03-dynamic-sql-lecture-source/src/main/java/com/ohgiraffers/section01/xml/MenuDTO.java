@@ -1,7 +1,6 @@
-package com.ohgiraffers.section01.xmlconfig;
+package com.ohgiraffers.section01.xml;
 
 public class MenuDTO {
-
     private int menuCode;
     private String menuName;
     private int menuPrice;

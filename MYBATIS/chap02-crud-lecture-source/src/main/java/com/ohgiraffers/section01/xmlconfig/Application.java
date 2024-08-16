@@ -68,10 +68,12 @@ public class Application {
         String categoryCode = sc.nextLine();
 
         Map<String, String> parameter = new HashMap<>();
-        parameter.put("menuName",menuName);
-        parameter.put("menuPrice",menuPrice);
+        parameter.put("menuName", menuName);
+        parameter.put("menuPrice", menuPrice);
         parameter.put("categoryCode", categoryCode);
 
+
+        System.out.println("parameter = " + parameter);
         return parameter;
     }
 

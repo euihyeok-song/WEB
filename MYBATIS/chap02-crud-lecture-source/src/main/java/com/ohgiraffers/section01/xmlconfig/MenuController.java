@@ -48,7 +48,7 @@ public class MenuController {
         MenuDTO menu = new MenuDTO();
         menu.setMenuName(menuName);
         menu.setMenuPrice(menuPrice);
-        menu.setMenuCode(categoryCode);
+        menu.setCategoryCode(categoryCode);
 
         if(menuService.registMenu(menu)) {
             printResult.printSuccessMessage("regist");
