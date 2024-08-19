@@ -14,7 +14,7 @@ import java.util.Scanner;
  * 필기.
  *  remix 방식을 적용하기 위한 규칙
  *  1. mapper용 인터페이스와 mapper용 xml 파일 이름 동일(경로도 맞춰서 적어야함 resources/com/ohgiraffers/section03/remix/~)
- *  2. mapper용 인터체이스와 풀 클래스명이 mapper용 xml 파일의 namespace가 되어야 한다.
+ *  2. mapper용 인터페이스와 풀 클래스명이 mapper용 xml 파일의 namespace가 되어야 한다.
  *  3. mapper용 인터페이스와 mapper용 xml 파일의 위치가 동일
  *  4. mapper용 인터페이스의 추상 메소드명이 실행 될 xml 파일의 쿼리 id와 동일
 */

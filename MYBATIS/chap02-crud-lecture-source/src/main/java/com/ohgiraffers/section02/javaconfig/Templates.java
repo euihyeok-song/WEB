@@ -26,7 +26,7 @@ public class Templates {
 
             Configuration configuration = new Configuration(environment);
 
-            /* 설명. MenuMapper = DAO 개념의 interface + Query를 담고있는 Mppaer
+            /* 설명. MenuMapper = DAO 개념의 interface + Query를 담고있는 Mapper
             *       구현하는 클래스 필요없이 알아서 만들어줌  */
             configuration.addMapper(MenuMapper.class);
 

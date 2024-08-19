@@ -8,7 +8,6 @@ public class MenuController {
     private final MenuService menuService;
     private final PrintResult printResult;              // 출력을 잘하는 거를 따로 만듦
 
-    /* 설명. 생성자 주입 방식 - 의존성 주입 */
     public MenuController() {
         menuService = new MenuService();
         printResult = new PrintResult();
