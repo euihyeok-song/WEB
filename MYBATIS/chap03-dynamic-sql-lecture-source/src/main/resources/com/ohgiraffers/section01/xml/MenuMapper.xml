@@ -170,7 +170,7 @@
             <if test="menuName != null and menuName != ''">
                 MENU_NAME = #{ menuName }
             </if>
-            <if test="orederableStatus != null and orderableStatus != ''">
+            <if test="orderableStatus != null and orderableStatus != ''">
                 , ORDERABLE_STATUS = #{ orderableStatus }
             </if>
         </trim>
