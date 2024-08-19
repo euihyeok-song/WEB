@@ -12,7 +12,6 @@ public class MenuService {
 
     private final SqlSessionTemplate sqlSession;
 
-
     /* 설명. 생성자 주입 방식 사용 */
     @Autowired
     public MenuService(SqlSessionTemplate sqlSession) {

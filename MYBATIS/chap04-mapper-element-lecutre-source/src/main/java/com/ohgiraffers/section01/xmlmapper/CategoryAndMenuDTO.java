@@ -8,8 +8,8 @@ public class CategoryAndMenuDTO {
     private int categoryCode;
     private String categoryName;
     /* 설명. *** 값이 없을 경우 NULL값을 띄우고 싶으면, Wrapper클래스 사용(사용자로부터의 입력이 없거나, 값이 없는 상위 필드)****/
-    private Integer refCategoryCode;                 // Wrapper class형채(nullable)
-    /* 설명. Collction관계는 추가로 들어감 */
+    private Integer refCategoryCode;                 // Wrapper class형태(nullable)
+    /* 설명. Collction관계(1대 M)는 추가로 들어감 */
     private List<MenuDTO> menus;                    // Collection 관계인 경우는 속성이 늘어난다.
 
     public CategoryAndMenuDTO() {

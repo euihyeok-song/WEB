@@ -75,7 +75,7 @@
 <!--        <id property="categoryCode" column="CATEGORY_CODE"/>-->
 <!--        <result property="categoryName" column="CATEGORY_NAME"/>-->
 <!--        <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>-->
-<!--        <collection property="menus" resultMap="menuResultMap"/>            &lt;!&ndash; 아래의 resultMap이 이 List에 담김 &ndash;&gt;-->
+<!--        <collection property="menus" resultMap="menuResultMap"/>    아래의 resultMap이 이 List에 담김 -->
 <!--    </resultMap>-->
 <!--    <resultMap id="menuResultMap" type="com.ohgiraffers.section01.xmlmapper.MenuDTO">-->
 <!--        <id property="menuCode" column="MENU_CODE"/>-->
