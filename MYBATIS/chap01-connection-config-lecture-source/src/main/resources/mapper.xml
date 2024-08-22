@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper">         <!-- 쿼리가 어떤 .xml소속인지 써줌 (mapper.xml => mapper) => 쿼리를 담은 xml이 여러개일수 있음-->
-    <select id="selectNow" resultType="java.util.Date">     <!-- 메소드의 이름을 넣어줌 + 반환형 넣어줌 -->
-        SELECT NOW()
-    </select>
-</mapper>
