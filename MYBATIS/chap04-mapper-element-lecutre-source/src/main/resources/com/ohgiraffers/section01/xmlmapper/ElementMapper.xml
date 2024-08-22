@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.section01.xmlmapper.ElementMapper">
+
+    <!-- 설명. mybatis-config.xml에 적어둔 Alias를 사용해서 type를 줄여서 씀 -->
+    <resultMap id="menuResultMap1" type="MenuDTO">
+        <id property="menuCode" column="MENU_CODE"/>
+        <result property="menuName" column="MENU_NAME"/>
+        <result property="menuPrice" column="MENU_PRICE"/>
+        <result property="categoryCode" column="CATEGORY_CODE"/>
+    </resultMap>
+    <!-- 설명. 상속을 받아 만들수 있다. -->
+    <resultMap id="menuResultMap2" type="MenuDTO" extends="menuResultMap1">
+        <result property="orderableStatus" column="ORDERABLE_STATUS"/>
+    </resultMap>
+
+    <select id="selectResultMapTest" resultMap="menuResultMap2">
+        SELECT
+               A.MENU_CODE
+             , A.MENU_NAME
+             , A.MENU_PRICE
+             , A.CATEGORY_CODE
+             , A.ORDERABLE_STATUS
+          FROM TBL_MENU A
+         WHERE A.ORDERABLE_STATUS = 'Y'
+    </select>
+
+    <!-- 설명. Association을 사용하면 JAVA와 DB를 2번 왔다갔다 할 필요없이 1번만 이동할 수 있기 때문에 많이 사용  -->
+<!--    <resultMap id="menuAndCategoryResultMap"-->
+<!--               type="com.ohgiraffers.section01.xmlmapper.MenuAndCategoryDTO">-->
+<!--        <id property="menuCode" column="MENU_CODE"/>-->
+<!--        <result property="menuName" column="MENU_NAME"/>-->
+<!--        <result property="menuPrice" column="MENU_PRICE"/>-->
+<!--        <result property="orderableStatus" column="ORDERABLE_STATUS"/>-->
+<!--        <association property="category" resultMap="categoryResultMap"/>-->
+<!--    </resultMap>-->
+<!--    <resultMap id="categoryResultMap"-->
+<!--               type="com.ohgiraffers.section01.xmlmapper.CategoryDTO">-->
+<!--        <id property="categoryCode" column="CATEGORY_CODE"/>-->
+<!--        <result property="categoryName" column="CATEGORY_NAME"/>-->
+<!--        <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>-->
+<!--    </resultMap>-->
+
+    <!-- 설명. javaType을 통해서 resultMap을 1개만 만들 수 있다. (단점: category만 mapping하는 경우에는 따로 만들어줘야함) -->
+    <resultMap id="menuAndCategoryResultMap"
+               type="com.ohgiraffers.section01.xmlmapper.MenuAndCategoryDTO">
+        <id property="menuCode" column="MENU_CODE"/>
+        <result property="menuName" column="MENU_NAME"/>
+        <result property="menuPrice" column="MENU_PRICE"/>
+        <result property="orderableStatus" column="ORDERABLE_STATUS"/>
+        <association property="category" javaType="com.ohgiraffers.section01.xmlmapper.CategoryDTO">
+            <id property="categoryCode" column="CATEGORY_CODE"/>
+            <result property="categoryName" column="CATEGORY_NAME"/>
+            <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>
+        </association>
+    </resultMap>
+
+    <select id="selectResultMapAssociationTest" resultMap="menuAndCategoryResultMap">
+        SELECT
+               A.MENU_CODE
+             , A.MENU_NAME
+             , A.MENU_PRICE
+             , B.CATEGORY_CODE
+             , B.CATEGORY_NAME
+             , B.REF_CATEGORY_CODE
+             , A.ORDERABLE_STATUS
+          FROM TBL_MENU A
+          JOIN TBL_CATEGORY B ON (A.CATEGORY_CODE = B.CATEGORY_CODE)
+         WHERE A.ORDERABLE_STATUS = 'Y'
+    </select>
+    
+<!--    <resultMap id="categoryAndMenuResultMap" type="com.ohgiraffers.section01.xmlmapper.CategoryAndMenuDTO">-->
+<!--        <id property="categoryCode" column="CATEGORY_CODE"/>-->
+<!--        <result property="categoryName" column="CATEGORY_NAME"/>-->
+<!--        <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>-->
+<!--        <collection property="menus" resultMap="menuResultMap"/>    아래의 resultMap이 이 List에 담김 -->
+<!--    </resultMap>-->
+<!--    <resultMap id="menuResultMap" type="com.ohgiraffers.section01.xmlmapper.MenuDTO">-->
+<!--        <id property="menuCode" column="MENU_CODE"/>-->
+<!--        <result property="menuName" column="MENU_NAME"/>-->
+<!--        <result property="menuPrice" column="MENU_PRICE"/>-->
+<!--        <result property="categoryCode" column="CATEGORY_CODE"/>-->
+<!--        <result property="orderableStatus" column="ORDERABLE_STATUS"/>-->
+<!--    </resultMap>-->
+
+    <!-- 설명. resultMap을 한번만 써서 하는 방법 -->
+    <resultMap id="categoryAndMenuResultMap" type="com.ohgiraffers.section01.xmlmapper.CategoryAndMenuDTO">
+        <id property="categoryCode" column="CATEGORY_CODE"/>
+        <result property="categoryName" column="CATEGORY_NAME"/>
+        <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>
+        <collection property="menus" ofType="com.ohgiraffers.section01.xmlmapper.MenuDTO">
+            <id property="menuCode" column="MENU_CODE"/>
+            <result property="menuName" column="MENU_NAME"/>
+            <result property="menuPrice" column="MENU_PRICE"/>
+            <result property="categoryCode" column="CATEGORY_CODE"/>
+            <result property="orderableStatus" column="ORDERABLE_STATUS"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectResultMapCollectionTest" resultMap="categoryAndMenuResultMap">
+        SELECT
+               A.CATEGORY_CODE
+             , A.CATEGORY_NAME
+             , A.REF_CATEGORY_CODE
+             , B.MENU_CODE
+             , B.MENU_NAME
+             , B.MENU_PRICE
+             , B.CATEGORY_CODE
+             , B.ORDERABLE_STATUS
+          FROM TBL_CATEGORY A
+          LEFT JOIN TBL_MENU B ON (A.CATEGORY_CODE = B.CATEGORY_CODE)
+         ORDER BY 1
+    </select>
+</mapper>
