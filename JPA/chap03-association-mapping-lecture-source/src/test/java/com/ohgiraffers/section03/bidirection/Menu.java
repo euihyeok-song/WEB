@@ -13,9 +13,9 @@ public class Menu {
     @Column(name="menu_price")
     private int menuPrice;
 
-    @JoinColumn(name="category_Code")
+    @JoinColumn(name="category_code")
     @ManyToOne
-    private Category categoryCode;
+    private Category category;
 
     @Column(name="orderable_status")
     private String orderableStatus;
@@ -24,10 +24,10 @@ public class Menu {
     public Menu() {
     }
 
-    public Menu(int menuCdoe, int menuPrice, Category categoryCode, String orderableStatus) {
+    public Menu(int menuCdoe, int menuPrice, Category category, String orderableStatus) {
         this.menuCdoe = menuCdoe;
         this.menuPrice = menuPrice;
-        this.categoryCode = categoryCode;
+        this.category = category;
         this.orderableStatus = orderableStatus;
     }
 
@@ -39,8 +39,8 @@ public class Menu {
         return menuPrice;
     }
 
-    public Category getCategoryCode() {
-        return categoryCode;
+    public Category getCategory() {
+        return category;
     }
 
     public String getOrderableStatus() {
@@ -52,9 +52,10 @@ public class Menu {
         return "Menu{" +
                 "menuCdoe=" + menuCdoe +
                 ", menuPrice=" + menuPrice +
-//              ", categoryCode=" + categoryCode.toStirng() +  // 이런식으로 되어서 서로가 서로를 참조해서 계속 순환참조 발생 (삭제필요)
+    //          ", categoryCode=" + categoryCode.toStirng() +  // 이런식으로 되어서 서로가 서로를 참조해서 계속 순환참조 발생 (삭제필요)
                                                                 // 엔티티가 엔티티를 막도록 구현됨
                 ", orderableStatus='" + orderableStatus + '\'' +
                 '}';
     }
+
 }

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/* 설명. OneToMany는 절대 지향 */
 public class OneToManyAssociationTests {
     private static EntityManagerFactory emf;
     private static EntityManager em;

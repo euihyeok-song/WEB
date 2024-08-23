@@ -73,6 +73,10 @@ public class PrimaryKeyMappingTests {
          *
          * 설명.
          *  또한, 다중행 조회를 위해서는 반드시 jpql을 활용해야 한다.(다만, Spring Data Jpa는 다중행 조회를 따로 제공함)
+         *
+         * 설명.
+         *  jpql은 join fetch를 사용해서 미리 가져올 카테고리를 다 가져와서 함으로써 성능형상이 있지만, JPA로는 되도록 조인하지 X
+         *
          * */
 
         // jpql은 엔티티를 테이블 처럼 쓴다.
