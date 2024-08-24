@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-/* 설명. JpaRepository를 상속받은 Repository여서 클릭해보면 여러 기능 사용 가능 ,<Entity명, Entity의 PK>로 지정*/
+/* 설명. JpaRepository를 상속받은 Repository여서 클릭해보면 여러 기능 사용 가능 ,<Entity명, Entity의 PK>로 지정
+*       여기서 <Menu, > 에서 Menu는 jpql의 TypedQuery와 동일하다. */
 public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
     List<Menu> findByMenuPriceGreaterThan(int menuPrice);

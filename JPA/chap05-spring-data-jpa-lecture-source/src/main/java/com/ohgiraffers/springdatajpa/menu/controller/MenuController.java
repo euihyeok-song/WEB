@@ -72,13 +72,13 @@ public class MenuController {
 
     /* 설명. 페이징(Paging) 처리 후 */
     @GetMapping("/list")
-    public String findMenuList(@PageableDefault Pageable pageable, Model model){            // default로 설정되어 있음
+    public String findMenuList(@PageableDefault Pageable pageable, Model model){ // Query메소드가 없으면 0(default)
 //    public String findMenuList(@PageableDefault(page=1) Pageable pageable, Model model){  // 2page부터 시작할 경우
-//    public String findMenuList(@PageableDefault(size=15) Pageable pageable, Model model){ // 페이지 란에 1,..,15까지 가능
-
-        Page<MenuDTO> menuDTOList = menuService.findMenuList(pageable);
+//    public String findMenuList(@PageableDefault(size=15) Pageable pageable, Model model){ // 한 페이지 란에 1,..,15까지 가능
 
         /* 설명. 페이지에 넣을 재료들을 list에 넣어주는 부분 */
+        Page<MenuDTO> menuDTOList = menuService.findMenuList(pageable);
+
         log.debug("조회한 내용 목록: {}", menuDTOList.getContent());
         log.debug("총 페이지 수: {}", menuDTOList.getTotalPages());
         log.debug("총 메뉴 수: {}", menuDTOList.getTotalElements());
@@ -94,7 +94,7 @@ public class MenuController {
 
         /* 설명. list.html의 ${ menuList }의 menuList로 넘어간다. */
         model.addAttribute("menuList",menuDTOList);
-        /* 설명. list.html의 paging부부의 재료로 들어감  */
+        /* 설명. list.html의 paging부분의 재료로 들어감  */
         model.addAttribute("paging",paging);
 
         return "menu/List";

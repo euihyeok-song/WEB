@@ -33,13 +33,13 @@ public class MenuService {
         this.menuRepository = menuRepository;
     }
 
-    /* 설명. 1. findById 예제 */
+    /* 설명. 1. findById(PK값) 예제 */
     public MenuDTO findMenuByCode(int menuCode) {
-        /* 설명. /menu/7 로부터 menuCode를 optional 타입으로 받아온다. - JpaRepositroy의 crudRepository에서 받은 메소드*/
+        /* 설명. /menu/7 로부터 7이 menuCode(optional 타입)로 들어간다. - JpaRepositroy의 crudRepository에서 받은 메소드*/
         /* 설명. 위는 select을 날린 조회문이여서 트랜잭션이 필요 X */
         Menu menu = menuRepository.findById(menuCode).orElseThrow(IllegalAccessError::new);
 
-        /* 설명. 이 방식을 권장 */
+        /* 설명. 이 방식을 권장 - setter없이 생성자 주입 방식 ( 맨 아래에 존재 )*/
 //      menuToMenuDTO(menu);
 
         /* 설명. menuDTO의 getter로 꺼내온 값들을 setter로 다 넣어주는 기능 - 추천하지는 않음 (mapper의 getter, setter 사용)
@@ -68,7 +68,7 @@ public class MenuService {
         *   2. 한 페이지에 뿌려질 데이터 크기
         *   3. 정렬 기준
         * */
-        /* 설명. 인덱스로 바꾸며, 페이지의 최소값(1페이지)의 index를 0으로 설정 */
+        /* 설명. 인덱스로 바꾸며, 페이지의 최소값(1페이지)의 index를 0으로 설정 -> 이상한 값이 넘어옴을 방지도 해줌*/
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber()-1,
                                 pageable.getPageSize(),
                                 Sort.by("menuCode").descending());
