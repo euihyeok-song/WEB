@@ -9,6 +9,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
+/* 설명. JPQL = 엔티티를 기준으로 쿼리 -> JPQL -> (dialect)별로 native query를 만들어줌 */
 public class SimpleJPQLTests {
     private static EntityManagerFactory emf;
     private static EntityManager em;
@@ -27,7 +29,7 @@ public class SimpleJPQLTests {
     @Test
     public void TypedQuery를_이용한_단일행_단일열_조회_테스트(){
         /* 설명. JPQL Query => mysql을 기준으로 만든 문법 */
-        String jpql = "SELECT menuName FROM Menu WHERE menuCode = 6";   // Menu부분이 Entity 이름을 적어줌
+        String jpql = "SELECT menuName FROM Menu WHERE menuCode = 6";   // Menu부분이 Entity 이름을 적어줌 menuName은 필드
         TypedQuery<String> query = em.createQuery(jpql,String.class);   // 타입을 지정해줌 ( TypedQuery )
 
         String resultMenuName = query.getSingleResult();      // 어떤타입인지 알면 JAVA의 하나의 결과로 받아낼 수 있다.
@@ -45,7 +47,7 @@ public class SimpleJPQLTests {
         Object resultMenuName = query.getSingleResult();
 
         assertTrue(resultMenuName instanceof String);
-        assertEquals("생마늘샐러드", resultMenuName);     // 동적바인딩 일어남
+        assertEquals("생마늘샐러드", resultMenuName);     // 동적바인딩 일어남(Object -> String)
 
         /* 설명. 단일행임에도 불구하고, 2개의 필드값이 들어가면, Object배열로 받아내야함 -> Projection의 1가지(4개중) 경우
         *       JPQL은 앵간하면 하나의 필드만 받거나, 전체의 필드를 다 받을 경우 사용하여라. */
