@@ -1,7 +1,10 @@
 package com.ohgiraffers.springdatajpa.menu.service;
 
+import com.ohgiraffers.springdatajpa.menu.aggregate.entity.Category;
 import com.ohgiraffers.springdatajpa.menu.aggregate.entity.Menu;
+import com.ohgiraffers.springdatajpa.menu.dto.CategoryDTO;
 import com.ohgiraffers.springdatajpa.menu.dto.MenuDTO;
+import com.ohgiraffers.springdatajpa.menu.repository.CategoryRepository;
 import com.ohgiraffers.springdatajpa.menu.repository.MenuRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,11 +30,14 @@ public class MenuService {
     private final ModelMapper mapper;
     private final MenuRepository menuRepository;  // Bean으로 등록해줄 필요없음
     // (알아서 Runtime에서 MenuRepository가 JpaRepository의 하위 구현체가 되고, 자동으로 Bean 등록이 된다.
+    private final CategoryRepository categoryRepository;
 
+    /* 설명. 의존성 주입 (생성자 주입 방식) */
     @Autowired
-    public MenuService(ModelMapper mapper, MenuRepository menuRepository) {
+    public MenuService(ModelMapper mapper, MenuRepository menuRepository, CategoryRepository categoryRepository) {
         this.mapper = mapper;
         this.menuRepository = menuRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     /* 설명. 1. findById(PK값) 예제 */
@@ -89,6 +96,41 @@ public class MenuService {
         List<Menu> menus = menuRepository.findByMenuPriceGreaterThan(menuPrice);
 
         return menus.stream().map(menu -> mapper.map(menu, MenuDTO.class)).collect(Collectors.toList());
+    }
+
+    /* 설명. 5. JPQL 또는 Native Query */
+    public List<CategoryDTO> findAllCategory() {
+        List<Category> categoryList = categoryRepository.findAllCategory();
+
+        /* 설명. category 이므로 getter를 사용 but, CategoryDTO가 들어간다면 setter를 사용 */
+        return categoryList.stream().map(category -> mapper.map(category, CategoryDTO.class))
+                                    .collect(Collectors.toList());
+    }
+
+    /* 설명. Spring Data JPA로 DML 작업하기(insert, update, delete) */
+    /* 설명. 6. 추가하기 - save */
+    @Transactional  // flush 와 commit 와 Rollback을 사용하기 위해서 넣어야 되는 Annotation
+    public void registMenu(MenuDTO newMenu) {
+
+        /* 설명. MenuDTO에서 Menu로 바꿔서 넘기고 modelmapper 활용 시에는 엔티티에 setter가 필요하다. */
+        menuRepository.save(mapper.map(newMenu, Menu.class));
+    }
+
+    /* 설명. 7. 수정하기 - 엔티티 영속 상태로 바꿔(find 활용) 해당 객체 값 변경 */
+    @Transactional      // DML 작업은 Transactional Annotation 필요
+    public void modifyMenu(MenuDTO modifyMenu) {
+        /* 설명. 영속 상태*/
+        Menu foundMenu = menuRepository.findById(modifyMenu.getMenuCode())
+                                        .orElseThrow(IllegalAccessError::new);
+
+        /* 설명. 영속성 컨텍스트로 commit되는 시점이 flush가 날아간다. */
+        foundMenu.setMenuName(modifyMenu.getMenuName());
+    }
+
+    /* 설명. 8. 삭제하기 - delete */
+    @Transactional
+    public void deleteMenu(int menuCode) {
+        menuRepository.deleteById(menuCode);        // JPARepository에서 제공하는 메소등
     }
 
 //    private static MenuDTO menuToMenuDTO(Menu menu) {

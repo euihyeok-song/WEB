@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-/* 설명. JPQL = 엔티티를 기준으로 쿼리 -> JPQL -> (dialect)별로 native query를 만들어줌 */
+/* 설명. JPQL = 엔티티를 기준으로 쿼리 -> JPQL -> (dialect)별로 native query(사용하는 DBMS에 맞춰서 짜줌)를 만들어줌 */
 public class SimpleJPQLTests {
     private static EntityManagerFactory emf;
     private static EntityManager em;
@@ -28,11 +28,13 @@ public class SimpleJPQLTests {
     /* 설명. JPQL => DBMS에 맞춰서 알아서 Query(native Query)를 해석해줌 */
     @Test
     public void TypedQuery를_이용한_단일행_단일열_조회_테스트(){
-        /* 설명. JPQL Query => mysql을 기준으로 만든 문법 */
+        /* 설명. JPQL Query => mysql을 기준으로 만든 문법 -> DBMS를 다른걸로 바꿔도 알아서 그 DBMS에 맞춰서 바꿔줌 */
         String jpql = "SELECT menuName FROM Menu WHERE menuCode = 6";   // Menu부분이 Entity 이름을 적어줌 menuName은 필드
-        TypedQuery<String> query = em.createQuery(jpql,String.class);   // 타입을 지정해줌 ( TypedQuery )
 
-        String resultMenuName = query.getSingleResult();      // 어떤타입인지 알면 JAVA의 하나의 결과로 받아낼 수 있다.
+        /* 설명. createQuery(바꿀 쿼리, java의 어떤 자료형으로 바꿀지 선언) - 타입을 명시(ex. String.class) */
+        TypedQuery<String> query = em.createQuery(jpql,String.class);   // 반환 타입이 명확할 때 TypedQuery를 사용
+
+        String resultMenuName = query.getSingleResult();      // JAVA의 하나의 결과로 받아낼 수 있다.
 
         System.out.println("resultMenuName = " + resultMenuName);
 

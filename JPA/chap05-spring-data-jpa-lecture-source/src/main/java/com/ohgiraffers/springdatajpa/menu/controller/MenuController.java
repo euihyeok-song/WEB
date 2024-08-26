@@ -2,6 +2,7 @@ package com.ohgiraffers.springdatajpa.menu.controller;
 
 import com.ohgiraffers.springdatajpa.common.Pagination;
 import com.ohgiraffers.springdatajpa.common.PagingButtonInfo;
+import com.ohgiraffers.springdatajpa.menu.dto.CategoryDTO;
 import com.ohgiraffers.springdatajpa.menu.dto.MenuDTO;
 import com.ohgiraffers.springdatajpa.menu.service.MenuService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,10 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -116,4 +114,56 @@ public class MenuController {
         return "menu/searchResult";
     }
 
+    @GetMapping("/regist")
+    public void registPage(){
+
+    }
+
+    /* 설명. JSON(JavaScript Object Notation)
+    *   자바의 어떤 형태든 javascript의 문자열로 변환  ex) []: jsong array(배열 형태), {}:json object(key와 value형태) */
+
+    /* 설명. regist.html에서 넘어오는 비동기 요청에 대해 json 문자열을 반환하는 핸들러 메소드 */
+    @GetMapping(value="category", produces = "application/jsoon; carset=UTF-8")
+
+    /* 설명.
+    *   메소드에 @ResponseBody가 붙은 메소드의 반환형은 ViewResolver가 해석하지 않는다.
+    *   @ResponseBody가 붙었을 떄 기존과 다른 핸들러 메소드의 차이점
+    *   1. 핸들러 메소드의 반환형이 어떤 것이라도 상관 없다.
+    *      (모두 json 문자열 형로 요청이 들어온 곳으로 반환된다.)
+    *   2. 한글이 포함된 데이터는 prodeces속성에 'application/json'라는 MIME 타입과
+    *     'charset-UTF-8' 인코딩 타입을 붙여준다.(위쪽 @GetMapping안에)
+    *      (현재 우리버전은 필수가 아니지만 더 낮은 버전에선 한글이 꺠지면 추가한다.)     */
+    @ResponseBody
+    public List<CategoryDTO> findCategoryList(){
+        return menuService.findAllCategory();
+    }
+
+    @PostMapping("/regist")
+    public String registMenu(MenuDTO newMenu){
+//        log.debug("newMenu: {}", newMenu);
+
+        menuService.registMenu(newMenu);
+        return "redirect:/menu/List";
+    }
+
+    @GetMapping("/modify")
+    public void modifyMenu(){}
+
+    @PostMapping("/modify")
+    public String modifyMenu(MenuDTO modifyMenu){
+        menuService.modifyMenu(modifyMenu);
+
+        return "redirect:/menu/" + modifyMenu.getMenuCode();
+    }
+
+    @GetMapping("/delete")
+    public void deleteMenu() {}
+
+    @PostMapping("/delete")
+    public String deleteMenu(@RequestMapping int menuCode){
+        menuService.deleteMenu(menuCode);
+
+        /* 설명. redirect를 하지 않으면 새로고침시 계속 삭제될수도 있다.(INSERT,UPDATE,DELETE는 redirect)*/
+        return "redirect:/menu/list";
+    }
 }

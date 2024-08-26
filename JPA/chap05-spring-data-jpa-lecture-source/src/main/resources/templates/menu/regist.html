@@ -26,7 +26,7 @@
 	</form>
 
 	<script>
-		fetch('/menu/category')
+		fetch('/menu/category') <!-- 페이지가 열리는 시점(get요청을 받음)에 실행 - 비동기요청(화면에 그려지는 것과 별개로 병렬로 날아감) -->
 				.then(res => res.json())
 				.then(data => {
 					const $categoryCode = document.getElementById('categoryCode');
