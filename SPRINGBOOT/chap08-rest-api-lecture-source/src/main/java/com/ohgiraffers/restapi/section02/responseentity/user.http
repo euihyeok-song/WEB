@@ -1,0 +1,2 @@
+### GET request users
+GET localhost:8080/entity/users

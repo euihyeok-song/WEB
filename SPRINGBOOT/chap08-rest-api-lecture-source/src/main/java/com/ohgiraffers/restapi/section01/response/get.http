@@ -1,0 +1,20 @@
+### Front 없이 Backend를 Test해보는 방식( 매번 Web에 들어가서 확인하지 않아도 OK)
+### postman 어플리케이션이 파일 업로드도 가능하여 더욱 편리하다.
+
+### GET request hello
+GET localhost:8080/response/hello
+
+### Get request rando,
+GET localhost:8080/response/random
+
+### Get requset mseaage - json object형으로 보내줌
+GET localhost:8080/response/message
+
+### Get request complicated json test
+GET localhost:8080/response/jsonTest
+
+### Get request image
+GET localhost:8080/response/image
+
+### Get request ResponseEntity
+GET localhost:8080/response/entity
