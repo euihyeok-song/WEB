@@ -160,7 +160,7 @@ public class MenuController {
     public void deleteMenu() {}
 
     @PostMapping("/delete")
-    public String deleteMenu(@RequestMapping int menuCode){
+    public String deleteMenu(@RequestParam int menuCode){
         menuService.deleteMenu(menuCode);
 
         /* 설명. redirect를 하지 않으면 새로고침시 계속 삭제될수도 있다.(INSERT,UPDATE,DELETE는 redirect)*/
