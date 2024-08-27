@@ -1,6 +1,5 @@
 package com.ohgiraffers.restapi.section02.responseentity;
 
-import org.apache.coyote.Response;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -8,12 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.net.http.HttpResponse;
 import java.nio.charset.Charset;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static java.lang.Class.forName;
 
 @RestController
 @RequestMapping("/entity")
@@ -58,14 +54,14 @@ public class ResponseEntityTestController {
     @GetMapping("/users/{userNo}")
     public ResponseEntity<ResponseMessage> findUserByNo(@PathVariable int userNo){
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("application", "json"),
+        headers.setContentType(new MediaType("application", "json",
             Charset.forName("UTF-8")));
 
         /* 설명. 요청 리소스(회원 번호와 일치하는 회원 한명)를 추출 */
         UserDTO foundUser = users
-                .stream()
-                .filter(user -> user.getNo() = userNo)
-                .collect(Collectors.toList()).get(0);ㅌㅌㄴㅌㄴ
+                            .stream()
+                            .filter(user -> user.getNo() == userNo)
+                            .collect(Collectors.toList()).get(0);
 
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("user",foundUser);
@@ -73,7 +69,7 @@ public class ResponseEntityTestController {
         return ResponseEntity
                 .ok()
                 .headers(headers)
-                .body(new ResponseMessage(200,"조회성공!",responseMap);
+                .body(new ResponseMessage(200,"조회 성공!", responseMap));
     }
 
     /* 설명. json문자열을 받아 파싱하기(feat. 커멘드 객체 ) */
@@ -89,28 +85,28 @@ public class ResponseEntityTestController {
 
         /* 설명. auto_increment가 안되니 soft delete를 가정하여 마지막 회원 번호 + 1로 newUser에 추가하기 */
         int lastUserNo = users.get(users.size() - 1).getNo();              // 컬렉션에 쌓인 마지막 회원 번호
-        newUser.setNo(lastUserNo - 1);                                      // 마지막 회원 번호 + 1
+        newUser.setNo(lastUserNo + 1);                                      // 마지막 회원 번호 + 1
 
         users.add(newUser);
 
         /* 설명. created를 통해 Response Header에 Location이라는 속성으로 생성된 리소스를 찾아갈 경로를 제시할 수 있디. */
-        return ReponseEntity
+        return ResponseEntity
                 /* 설명. resource를 찾아가는 경로를 넣어줄 수 있다. - restapi 스럽다. */
-                .created(URI.create("/entity/users/" + users.get(users.size() - 1).getNo()));
+                .created(URI.create("/entity/users/" + users.get(users.size() - 1).getNo()))
                 .build();               // created를 썼을 때는 .build()를 해야한다.
     }
 
-    @PutMapping("usres/{userNO}")
+    @PutMapping("usres/{userNo}")
     public ResponseEntity<?> modifyUser(@RequestBody UserDTO modifyUSer, @PathVariable int userNo){
 
         UserDTO modifyUser =
-                users.stream().filter(user -> user.getNo() ==userNo)
+                users.stream().filter(user -> user.getNo() == userNo)
                         .collect(Collectors.toList())
                         .get(0);
 
         modifyUser.setId(modifyUser.getId());
-        modifyUser.setPwd(modifyUser.getId());
-        modifyUser.setName(modifyUser.getId());
+        modifyUser.setPwd(modifyUser.getPwd());
+        modifyUser.setName(modifyUser.getName());
 
         return ResponseEntity
                 .created(URI.create("/entity/users/" + userNo))      // Response Header의 Location 정보 제공을 위해
@@ -118,17 +114,18 @@ public class ResponseEntityTestController {
     }
 
     @DeleteMapping("/users/{userNo}")
-    public ResponseEntity<?> removeUser(@RequestBody UserDTO modifyUSer, @PathVariable int userNo){
+    public ResponseEntity<?> removeUser(@PathVariable int userNo) {
 
-        UserDTO modifyUser =
-                users.stream().filter(user -> user.getNo() ==userNo)
+        UserDTO foundUser =
+                users.stream().filter(user -> user.getNo() == userNo)
                         .collect(Collectors.toList())
                         .get(0);
 
         /* 설명. 객체를 찾아서 알아서 지워준다 */
-        users.remve(foundUser);
+        users.remove(foundUser);
 
         return ResponseEntity
                 .noContent()        //204번 응답 코드
                 .build();
+    }
 }

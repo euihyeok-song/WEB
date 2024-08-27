@@ -36,7 +36,8 @@ public class ResponseRestController {
     *   RestController에서 반환한 것(자바의 타입들)은 모두 JSON Array형태([]), 또는 JSON object 형태({})로 바뀌어
     *   JSON 문자열로 반환한다.
     *   1. Map 또는 일반 클래스 타입 -> {} 형태
-    *   2. ArrayList -> [] 형태*/
+    *   2. ArrayList -> [] 형태
+    * */
     @GetMapping("jsonTest")
     public List<Map<String, Object>> getJsonTest(){
         List<Map<String ,Object>> list = new ArrayList<>();
@@ -54,7 +55,8 @@ public class ResponseRestController {
     }
 
     /* 설명. 응답해주는 것이 MediaType(그림)일 경우  - 이미지 응답
-    *   produces는 response header의 content-type 설정이다. (jpeg에 대한 MIME 타입 설정) */
+    *   produces는 response header의 content-type 설정이다. (jpeg에 대한 MIME 타입 설정)
+    * */
     @GetMapping(value = "image", produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] getIage() throws IOException {
         /* 설명. 실제로는 build의 static으로 간다. -> 오른쪽 코끼리의 tasks의 build 누르거나 Tomcat켜면 build에 들어감 */
