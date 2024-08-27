@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +15,7 @@ import java.util.Map;
 /* 설명. 모든 핸들러 메소드에 @ResponseBody를 붙이는 개념 */
 @RestController
 @RequestMapping("/response")
-public class RsponseRestController {
+public class ResponseRestController {
 
     @GetMapping("hello")        // "/response"도 동일
     public String helloWorld(){
@@ -34,7 +33,7 @@ public class RsponseRestController {
     }
 
     /* 설명.
-    *   RestController에서 반환한 것(자바의 타입들)은 모두 JSONArray형태([]), 또는 JSONobject 형태({})로 바뀌어
+    *   RestController에서 반환한 것(자바의 타입들)은 모두 JSON Array형태([]), 또는 JSON object 형태({})로 바뀌어
     *   JSON 문자열로 반환한다.
     *   1. Map 또는 일반 클래스 타입 -> {} 형태
     *   2. ArrayList -> [] 형태*/
@@ -65,7 +64,7 @@ public class RsponseRestController {
 
     /* 설명. ResponseEntity를 활용한 응답(section02에서 자세히 다률 예정)
     *       1. StatusCode
-    *       2. Heeader
+    *       2. Header
     *       3. ResonseBody
     *        => 생성자 or builder를 이용 */
     @GetMapping("/entity")
