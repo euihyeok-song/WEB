@@ -120,10 +120,10 @@ public class MenuController {
     }
 
     /* 설명. JSON(JavaScript Object Notation)
-    *   자바의 어떤 형태든 javascript의 문자열로 변환  ex) []: jsong array(배열 형태), {}:json object(key와 value형태) */
+    *   자바의 어떤 형태든 javascript의 문자열로 변환  ex) []: json array(배열 형태), {}:json object(key와 value형태) */
 
     /* 설명. regist.html에서 넘어오는 비동기 요청에 대해 json 문자열을 반환하는 핸들러 메소드 */
-    @GetMapping(value="category", produces = "application/jsoon; carset=UTF-8")
+    @GetMapping(value="category", produces = "application/json; charset=UTF-8")
 
     /* 설명.
     *   메소드에 @ResponseBody가 붙은 메소드의 반환형은 ViewResolver가 해석하지 않는다.
