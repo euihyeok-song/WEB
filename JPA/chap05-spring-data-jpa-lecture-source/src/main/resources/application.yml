@@ -6,8 +6,9 @@ spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/menudb
-    username: root
-    passeord: root
+    username: swcamp
+    password: swcamp
+
   jpa:
     generate-ddl: false
     show-sql: true
@@ -16,11 +17,8 @@ spring:
       hibernate:
         '[format_sql]': true
 
-# ??? ?? ??? ????
 logging:
   level:
     com:
       ohgiraffers:
         springdatajpa: debug
-
-

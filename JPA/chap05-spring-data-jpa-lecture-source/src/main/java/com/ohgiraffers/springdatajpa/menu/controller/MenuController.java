@@ -58,15 +58,15 @@ public class MenuController {
     }
 
     /* 설명. 페이징(Paging) 처리 전 - resources/templates/menu/list.html 참고 */
-    @GetMapping("/list")
-    public String findMenuList(Model model){
-
-        List<MenuDTO> menuDTOList = menuService.findMenuList();
-        /* 설명. list.html의 ${ menuList }의 menuList로 넘어간다. */
-        model.addAttribute("menuList",menuDTOList);
-
-        return "menu/List";
-    }
+//    @GetMapping("/list")
+//    public String findMenuList(Model model){
+//
+//        List<MenuDTO> menuDTOList = menuService.findMenuList();
+//        /* 설명. list.html의 ${ menuList }의 menuList로 넘어간다. */
+//        model.addAttribute("menuList",menuDTOList);
+//
+//        return "menu/List";
+//    }
 
     /* 설명. 페이징(Paging) 처리 후 */
     @GetMapping("/list")
@@ -101,7 +101,6 @@ public class MenuController {
     /* 설명. querymethod.html용 page로 전송하면 searchResult.html로 결과를 반환해줌 */
     @GetMapping("/query")
     public void queryMethodPage(){
-
     }
 
     @GetMapping("/search")
@@ -116,14 +115,14 @@ public class MenuController {
 
     @GetMapping("/regist")
     public void registPage(){
-
+//        log.debug("newMenu: {}", newMenu);
     }
 
     /* 설명. JSON(JavaScript Object Notation)
     *   자바의 어떤 형태든 javascript의 문자열로 변환  ex) []: json array(배열 형태), {}:json object(key와 value형태) */
 
     /* 설명. regist.html에서 넘어오는 비동기 요청에 대해 json 문자열을 반환하는 핸들러 메소드 */
-    @GetMapping(value="category", produces = "application/json; charset=UTF-8")
+    @GetMapping(value="/category", produces = "application/json; charset=UTF-8")
 
     /* 설명.
     *   메소드에 @ResponseBody가 붙은 메소드의 반환형은 ViewResolver가 해석하지 않는다.
@@ -132,7 +131,8 @@ public class MenuController {
     *      (모두 json 문자열 형로 요청이 들어온 곳으로 반환된다.)
     *   2. 한글이 포함된 데이터는 prodeces속성에 'application/json'라는 MIME 타입과
     *     'charset-UTF-8' 인코딩 타입을 붙여준다.(위쪽 @GetMapping안에)
-    *      (현재 우리버전은 필수가 아니지만 더 낮은 버전에선 한글이 꺠지면 추가한다.)     */
+    *      (현재 우리버전은 필수가 아니지만 더 낮은 버전에선 한글이 꺠지면 추가한다.)
+    * */
     @ResponseBody
     public List<CategoryDTO> findCategoryList(){
         return menuService.findAllCategory();
@@ -143,7 +143,7 @@ public class MenuController {
 //        log.debug("newMenu: {}", newMenu);
 
         menuService.registMenu(newMenu);
-        return "redirect:/menu/List";
+        return "redirect:/menu/list";
     }
 
     @GetMapping("/modify")

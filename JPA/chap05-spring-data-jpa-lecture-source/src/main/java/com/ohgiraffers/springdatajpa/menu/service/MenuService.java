@@ -120,8 +120,9 @@ public class MenuService {
     @Transactional      // DML 작업은 Transactional Annotation 필요
     public void modifyMenu(MenuDTO modifyMenu) {
         /* 설명. 영속 상태*/
-        Menu foundMenu = menuRepository.findById(modifyMenu.getMenuCode())
-                                        .orElseThrow(IllegalAccessError::new);
+        Menu foundMenu =
+                menuRepository.findById(modifyMenu.getMenuCode())
+                        .orElseThrow(IllegalArgumentException::new);
 
         /* 설명. 영속성 컨텍스트로 commit되는 시점이 flush가 날아간다. */
         foundMenu.setMenuName(modifyMenu.getMenuName());
