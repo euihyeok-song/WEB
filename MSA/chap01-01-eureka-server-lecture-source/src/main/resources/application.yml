@@ -1,0 +1,10 @@
+server:
+  port: 8761      # eureka server가 사용하는 port번호
+
+eureka:
+  client:
+    # eureka server는 eureka server에 저장해서 관리할 필요가 없다.
+    register-with-eureka: false
+    # eureka server는 다른 micro service들을 주기적으로 갱신해서 인지할 필요가 없다.(eureka client server는 true로 설정)
+    fetch-registry: false
+
