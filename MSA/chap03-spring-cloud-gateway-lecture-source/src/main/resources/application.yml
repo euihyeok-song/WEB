@@ -43,4 +43,4 @@ spring:
           filters:
             - RewritePath=/second-service/(?<segment>.*), /$\{segment}
             - AddRequestHeader=second-request, second-request-header
-            - AddResponseHeader=second-response, second-response-header
+            - AddResponseHeader=second-response, second-response-headersd
