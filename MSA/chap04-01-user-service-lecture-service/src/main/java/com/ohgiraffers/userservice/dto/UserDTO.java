@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class UserDTO {
 
-    /* 설명. ModelMApper가 인지해주기 위해서 DTO에서 entity나 vo에서 선언해준 이름과 동일하게 맞춰줘야 함 */
+    /* 설명. ModelMapper가 인지해주기 위해서 DTO에서 entity나 vo에서 선언해준 이름과 동일하게 맞춰줘야 함 */
     private String email;
     private String name;
     private String pwd;

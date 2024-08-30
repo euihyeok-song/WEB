@@ -88,4 +88,15 @@ public class UserServiceImpl implements UserService{
                 true, true, true, true,
                 grantedAuthorities);
     }
+
+    @Override
+    public UserDTO getUserByUserId(String memNo) {
+
+        /* 설명.  get() => 예외 발생시키지 X / orElses => 예외 발생 */
+        UserEntity userEntity = userRepository.findById(Long.parseLong(memNo)).get();
+
+        UserDTO userDTO = modelMapper.map(userEntity, UserDTO.class);
+
+        return userDTO;
+    }
 }

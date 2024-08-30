@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -23,12 +24,15 @@ public class WebSecurity {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private UserService userService;
     private Environment env;
+    private JwtUtil jwtUtil;
 
     @Autowired
-    public WebSecurity(BCryptPasswordEncoder bCryptPasswordEncoder, UserService userService, Environment env) {
+    public WebSecurity(BCryptPasswordEncoder bCryptPasswordEncoder, UserService userService,
+                       Environment env, JwtUtil jwtUtil) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userService = userService;
         this.env = env;
+        this.jwtUtil = jwtUtil;
     }
 
     /* 설명. 인가(Authorization)용 메소드(인증 필터 추가)- 우리 회원인지 메소드 사용시 확인 */
@@ -47,13 +51,16 @@ public class WebSecurity {
         /* 설명. Manager 를 통해서 아래에 다 넣어줌*/
         AuthenticationManager authenticationManager = authenticationManagerBuidler.build();
 
+        /* 설명. 사용가능한 권한이 있는 부분들을 명시해줌 */
         http.authorizeHttpRequests((authz) ->
-                /* 설명. /users/** 경로로 오는 모든 사용자에서 권한 허용 - 화이트리스트(사용 가능 대상) 설정*/
-                authz.requestMatchers(new AntPathRequestMatcher("/users/**","POST")).permitAll()
-                        /* 설명. ROLE_ADMIN 권한을 가진 사용자들에게 GET 요청이 가능하도록 권한 부여의 의미 */
-//              authz.requestMatchers(new AntPathRequestMatcher("/user/**, "GET")).hasRole("ADMIN")
+                authz.requestMatchers(new AntPathRequestMatcher("/health","GET")).permitAll()
+                      .requestMatchers(new AntPathRequestMatcher("/welcome","GET")).permitAll()
+                      /* 설명. /users/** 경로로 오는 모든 사용자에서 권한 허용 - 화이트리스트(사용 가능 대상) 설정*/
+                      .requestMatchers(new AntPathRequestMatcher("/users/**","POST")).permitAll()
+                      /* 설명. ROLE_ADMIN 권한을 가진 사용자들에게 GET 요청이 가능하도록 권한 부여의 의미 */
+                      .requestMatchers(new AntPathRequestMatcher("/user/**", "GET")).hasRole("ENTERPRISE")
                         /* 설명. 그 외의 요청은 권한 거부 */
-                        .anyRequest().authenticated()
+                      .anyRequest().authenticated()
         )
                 /* 설명. authenticationManager 등록(UserDetails를 상속받는 Service 계층(직접알려줘야함) + BCrypt 암호화): 위에 작성*/
                 .authenticationManager(authenticationManager)
@@ -61,7 +68,11 @@ public class WebSecurity {
                 /* 설명. session 방식을 사용하지 않음(JWT Token 방식 사용시 설정할 내용) */
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
+
         http.addFilter(getAuthenticationFilter(authenticationManager));
+        /* 설명. JwtFilter도 추가해줘야함 - UsernamePasswordAuthentication filter 앞에 붙임 */
+        http.addFilterBefore(new JwtFilter(userService, jwtUtil), UsernamePasswordAuthenticationFilter.class);
+
 
         return http.build();
     }

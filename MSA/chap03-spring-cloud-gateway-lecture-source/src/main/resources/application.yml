@@ -12,35 +12,63 @@ spring:
   application:
     name: gateway-server
 
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: 1st-service
+#          #          uri: http://localhost:51844/    # first client ??  -> ?? ??? ???? ??(?? ???? ??)
+#          #          uri: http://localhost:51800//first-service/health  -> ?? ?? ???
+#          # eureka server? ?? client server? ??? ??? => ???? scale-out??(switching)
+#          # ??? ? ???? ??? application name ??(??? ??? ???? ??? ?)
+#          uri: lb://1ST-SERVICE
+#
+#          # ??? ??? ??? ??? ?? ???? ???(??? ??)
+#          predicates:
+#            - Path=/first-service/**
+#
+#          # ?? ??? ? ???? ???? /first-service?? ??? ???? ?? ??? ?? ?? ??? ?? (servlet? ??? filter)
+#          filters:
+#            - RewritePath=/first-service/(?<segment>.*), /$\{segment}
+#            # Gateway? ??? Header? ??? ??? ???
+#            - AddRequestHeader=first-request, first-request-header    # key, value ??
+#            # ?? ???? ?? responseHeader? ??
+#            - AddResponseHeader=first-response, first-response-header
+#
+#        - id: 2st-service
+#          uri: lb://2st-SERVICE
+#
+#          predicates:
+#            - Path=/second-service/**
+#
+#          filters:
+#            - RewritePath=/second-service/(?<segment>.*), /$\{segment}
+#            - AddRequestHeader=second-request, second-request-header
+#            - AddResponseHeader=second-response, second-response-headersd
+
   cloud:
     gateway:
       routes:
-        - id: 1st-service
-          #          uri: http://localhost:51844/    # first client ??  -> ?? ??? ???? ??(?? ???? ??)
-          #          uri: http://localhost:51800//first-service/health  -> ?? ?? ???
-          # eureka server? ?? client server? ??? ??? => ???? scale-out??(switching)
-          # ??? ? ???? ??? application name ??(??? ??? ???? ??? ?)
-          uri: lb://1ST-SERVICE
-
-          # ??? ??? ??? ??? ?? ???? ???(??? ??)
+        - id: user-service
+          uri: lb://SWCAMP-USER-SERVICE
           predicates:
-            - Path=/first-service/**
-
-          # ?? ??? ? ???? ???? /first-service?? ??? ???? ?? ??? ?? ?? ??? ?? (servlet? ??? filter)
+            - Path=/user-service/**
+            - Method=GET
           filters:
-            - RewritePath=/first-service/(?<segment>.*), /$\{segment}
-            # Gateway? ??? Header? ??? ??? ???
-            - AddRequestHeader=first-request, first-request-header    # key, value ??
-            # ?? ???? ?? responseHeader? ??
-            - AddResponseHeader=first-response, first-response-header
-
-        - id: 2st-service
-          uri: lb://2st-SERVICE
-
+            - RewritePath=/user-service/(?<segment>/*), /$\{segment}
+            - AuthorizationHeaderFilter # spring gateway에 token을 check하는 필터 추가
+        - id: user-service
+          uri: lb://SWCAMP-USER-SERVICE
           predicates:
-            - Path=/second-service/**
-
+            - Path=/user-service/**
+            - Method=POST
           filters:
-            - RewritePath=/second-service/(?<segment>.*), /$\{segment}
-            - AddRequestHeader=second-request, second-request-header
-            - AddResponseHeader=second-response, second-response-headersd
+            - RewritePath=/user-service/(?<segment>/*), /$\{segment}
+        - id: order-service
+          uri: lb://SWCAMP-ORDER-SERVICE
+          predicates:
+            - Path=/order-service/**
+          filters:
+            - RewritePath=/order-service/(?<segment>/*), /$\{segment}
+
+token:
+  secret: YY0PYolk92oOgGlgSLs9DiW40vJR6tMxlgaMbEeIQPN4mGxtgvoUmvEps+Wnnv+USWZHldQPf//AoPWK15qRBw==

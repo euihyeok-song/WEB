@@ -4,17 +4,14 @@ import com.ohgiraffers.userservice.dto.UserDTO;
 import com.ohgiraffers.userservice.service.UserService;
 import com.ohgiraffers.userservice.vo.Hello;
 import com.ohgiraffers.userservice.vo.RequestResistUserVO;
+import com.ohgiraffers.userservice.vo.ResponseFindUserVO;
 import com.ohgiraffers.userservice.vo.ResponseRegistUserVO;
-import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -66,6 +63,16 @@ public class UserController {
         /* 설명. UserDTO를 ResponseRegistUserVO로 만들어서 response body에 넣어서 전송*/
         ResponseRegistUserVO responseUser = modelMapper.map(userDTO, ResponseRegistUserVO.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
+    }
+
+    @GetMapping("/users/{memNo}")
+    public ResponseEntity<ResponseFindUserVO> getUser(@PathVariable("memNo") String memNo) {
+        UserDTO userDTO = userService.getUserByUserId(memNo);
+
+        ResponseFindUserVO findUser = modelMapper.map(userDTO, ResponseFindUserVO.class);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(findUser);
     }
 
 }
