@@ -15,8 +15,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Set;
 
-/* 설명. netty와 같은 비동기 통신을 위한 filter */
-/* 설명. API 게이트웨이의 요청을 처리하기 전에 JWT를 검증하는 역할 수행 필터(커스텀 필터) -> servlet 사용X (servlet과는 관련 X) */
+/* 설명. API 게이트웨이의 요청을 처리하기 전에 JWT를 검증하는 역할 수행 필터(커스텀 필터) */
 @Component
 @Slf4j
 public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config> {
@@ -27,12 +26,11 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         super(Config.class);
         this.env = env;
     }
-    /* 설명. 부모에게 자기자신(설정)을 제네릭으로 걸어서 부모에서 bean으로 관리해주도록 함*/
-    public static class Config {
 
+    public static class Config {
     }
 
-    /* 설명. GateWayFilter를 반환하며, exchanger와 chain 객체를 사용하여 요청과 응답 처리 및 다음 필터 실행 */
+    /* 설명. GatewayFilter를 반환하며, exchanger와 chain객체를 사용하여 요청과 응답 처리 및 다음 필터 실행 */
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {           // exchange는 request와 response가 캡슐화 된 하나의 객체
@@ -65,7 +63,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         };
     }
 
-    /* 설명. Mono 타입은 0 또는 1개의 객체를 비동기적으로 처리할 때 사용(비동기 작업이 성공 또는 실패했는지를 나태내기 위한 반환 타입) */
+    /* 설명. Mono는 0 또는 1개의 객체를 비동기적으로 처리할 때 사용(비동기 작업이 성공 또는 실패했는지를 나타내기 위한 반환 타입) */
     private Mono<Void> onError(ServerWebExchange exchange, String errorMessage, HttpStatus httpStatus) {
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(httpStatus);
@@ -95,4 +93,6 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
         return returnValue;
     }
+
+
 }
