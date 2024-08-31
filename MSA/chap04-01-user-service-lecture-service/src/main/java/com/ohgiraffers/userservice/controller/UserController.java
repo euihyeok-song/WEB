@@ -34,12 +34,13 @@ public class UserController {
 
     @GetMapping("/health")
     public String status(){
+        /* 설명. 해당 마이크로 서비스가 application.yml에 설정 값이 제대로 들어 있는지 확인(feat.@Value)
+         *      => 설정서버를 따로 뺴서 불러올떄 사용
+         * */
         return "I'm Working in User Service " + env.getProperty("local.server.port");
     }
 
-    /* 설명. 해당 마이크로 서비스가 application.yml에 설정 값이 제대로 들어 있는지 확인(feat.@Value)
-     *      => 설정서버를 따로 뺴서 불러올떄 사용
-     * */
+
     @GetMapping("/welcome")
     public String welcome(){
 
@@ -61,6 +62,7 @@ public class UserController {
 //        return ResponseEntity.status(HttpStatus.OK).build();
 
         /* 설명. UserDTO를 ResponseRegistUserVO로 만들어서 response body에 넣어서 전송*/
+        /* 설명. modelMapper는 A라는 클래스에 B클래스의 값을 담아주는 메소드 */
         ResponseRegistUserVO responseUser = modelMapper.map(userDTO, ResponseRegistUserVO.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
     }
