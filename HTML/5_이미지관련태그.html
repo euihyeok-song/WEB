@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="sample/image/river1.PNG" alt="깅기사진">
+
+    <h4>고정 크기 단위: 화면 사이즈가 달라져도 크기가 변하지 않는다.</h4>
+    <img src="sample/image/flower1.PNG" width="200px" height="150px">
+    <img src="sample/image/flower2.PNG" width="200px" height="150px">
+    <img src="sample/image/flower3.PNG" width="200px" height="150px">
+    <img src="sample/image/flower4.PNG" width="200px" height="150px">
+    <img src="sample/image/flower5.PNG" width="200px" height="150px">
+
+    <h4>가변 크기 단위: 화면 사이즈가 달라지면 그 사이즈에 따라 크기가 변경된다.</h4>
+    <img src="sample/image/flower1.PNG" width="15%" height="150px">
+    <img src="sample/image/flower2.PNG" width="15%" height="150px">
+    <img src="sample/image/flower3.PNG" width="15%" height="150px">
+    <img src="sample/image/flower4.PNG" width="15%" height="150px">
+    <img src="sample/image/flower5.PNG" width="15%" height="150px">
+
+    <hr>
+    <h4>이미지 구역을 2개로 나누어 각각의 링크 설정</h4>
+    <img src="sample/image/city1.PNG" width="600px" height="500px" usemap="#map">
+    <map name="map">
+        <area shape="rect" coords="0,0,300,500" href="http://www.naver.com" target="_self">
+        <area shape="rect" coords="300,0,600,500" href="http://www.google.com" target="_blank">
+    </map>
+
+    <!-- image 태그의 설명은 figure태그와 figcaption태그를 활용하게 된다. -->
+    <figure>
+        <img src="sample/image/tower1.PNG" width="600px" height="300px">
+        <figcaption>
+            <p>타워</p><br>
+            <p>멋진 타워 사진이다.</p>
+        </figcaption>
+    </figure>
+</body>
+</html>
