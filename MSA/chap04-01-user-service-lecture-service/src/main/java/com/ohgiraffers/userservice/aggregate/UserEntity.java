@@ -6,7 +6,7 @@ import lombok.Data;
 /* 설명. auto-ddl에 의해서 자동으로 반영되서 entity 만들어짐 */
 @Data
 @Entity
-@Table(name="tbl_member")
+@Tablwe(name="tbl_member")
 public class UserEntity {
 
     @Id
