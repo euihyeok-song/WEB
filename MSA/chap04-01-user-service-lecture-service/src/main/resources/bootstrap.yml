@@ -1,0 +1,7 @@
+# config 설정을 불러오기 위한 yml 파일(이름을 이렇게 적어야 함) - 설정용 서버 인지
+# name은 파일의 이름
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: msaconfig

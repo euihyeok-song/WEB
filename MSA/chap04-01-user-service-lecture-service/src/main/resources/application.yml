@@ -1,5 +1,5 @@
 server:
-  port: 8111
+  port: 0
 
 spring:
   application:
@@ -34,7 +34,16 @@ eureka:
 hello:
   message: Welcome to 9th SW-Camp
 
-# Token config(나중에 config 서버로 뺼 예정)
-token:
-  expiration_time: 43200000 # 만료 기간 설정 - miliseconds 딘위(12시간)
-  secret: YY0PYolk92oOgGlgSLs9DiW40vJR6tMxlgaMbEeIQPN4mGxtgvoUmvEps+Wnnv+USWZHldQPf//AoPWK15qRBw==  # HMAC secret 키
+# Token config
+# 시크릿 키와 같이 Token 정보는 github에 올리면 안되는 자료이므로, 따로 config 파일에 담아서 외부인이 볼수 없도록 설정
+#token:
+#  expiration_time: 43200000 # 만료 기간 설정 - miliseconds 딘위(12시간)
+#  secret: K0HHLFxls3IXU9tafT999JvEC3c80Dhy7qv41YyY99Pe1agCbJyiv558uBWHTQiYzRDdju9/CLtZltizLjGgSQ==  # HMAC secret 키
+
+## localhost:8000/user-service/actuator/beans 와 같은 형태로 보내면 자동으로 갱신해줌
+## actuator 추가 이후 0 - refresh는 POST요청 / beans는 GET요청
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, beans

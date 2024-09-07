@@ -1,0 +1,6 @@
+token:
+  expiration_time: 43200000 # 만료 기간 설정 - miliseconds 딘위(12시간)
+  secret: K0HHLFxls3IXU9tafT999JvEC3c80Dhy7qv41YyY99Pe1agCbJyiv558uBWHTQiYzRDdju9/CLtZltizLjGgSQ==  # HMAC secret 키
+
+test:
+  message: rainy day

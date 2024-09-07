@@ -6,6 +6,7 @@ import com.ohgiraffers.userservice.vo.Hello;
 import com.ohgiraffers.userservice.vo.RequestResistUserVO;
 import com.ohgiraffers.userservice.vo.ResponseFindUserVO;
 import com.ohgiraffers.userservice.vo.ResponseRegistUserVO;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Slf4j
 public class UserController {
 
     private Environment env;
@@ -37,7 +39,8 @@ public class UserController {
         /* 설명. 해당 마이크로 서비스가 application.yml에 설정 값이 제대로 들어 있는지 확인(feat.@Value)
          *      => 설정서버를 따로 뺴서 불러올떄 사용
          * */
-        return "I'm Working in User Service " + env.getProperty("local.server.port");
+        return "I'm Working in User Service " + env.getProperty("local.server.port")
+                + ", " + env.getProperty("test.message");
     }
 
 
@@ -71,12 +74,11 @@ public class UserController {
     public ResponseEntity<ResponseFindUserVO> getUser(@PathVariable("memNo") String memNo) {
         UserDTO userDTO = userService.getUserByUserId(memNo);
 
+        log.info("modelmapper 매핑 전(controller): {}", userDTO);
         ResponseFindUserVO findUser = modelMapper.map(userDTO, ResponseFindUserVO.class);
+        log.info("modelmapper 매핑 후(controller): {}", findUser);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(findUser);
     }
-
-
-
 }

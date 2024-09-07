@@ -106,7 +106,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         log.info("시크릿 키: " + env.getProperty("token.secret"));
 
         /* 설명. 토큰의 payload에 어떤 값을 담고 싶은지에 따라 고민해서 자료를 수집한다.(id, 가진 권한들, 만료시간) */
-        String userName = ((User) authResult.getPrincipal()).getUsername();  // id의 개념 (우리는 email로 함)
+        String userName = ((User)authResult.getPrincipal()).getUsername();  // id의 개념 (우리는 email로 함)
         log.info("인증된 회원의 id: " + userName);
 
 

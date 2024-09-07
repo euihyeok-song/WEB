@@ -43,13 +43,13 @@ public class WebSecurity {
         http.csrf((csrf) -> csrf.disable());
 
         /* 설명. 로그인 시 추가할 authenticaitonMananger 만들기 */
-        AuthenticationManagerBuilder authenticationManagerBuidler =
+        AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuidler.userDetailsService(userService)        // 우리의 Service 계층을 등록해줘야 함
+        authenticationManagerBuilder.userDetailsService(userService)        // 우리의 Service 계층을 등록해줘야 함
                 .passwordEncoder(bCryptPasswordEncoder);            // 사용할 암호화 방식을 넣어줌
 
         /* 설명. Manager 를 통해서 아래에 다 넣어줌*/
-        AuthenticationManager authenticationManager = authenticationManagerBuidler.build();
+        AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
 
         /* 설명. 사용가능한 권한이 있는 부분들을 명시해줌 */
         http.authorizeHttpRequests((authz) ->
@@ -58,7 +58,8 @@ public class WebSecurity {
                       /* 설명. /users/** 경로로 오는 모든 사용자에서 권한 허용 - 화이트리스트(사용 가능 대상) 설정*/
                       .requestMatchers(new AntPathRequestMatcher("/users/**","POST")).permitAll()
                       /* 설명. ROLE_ADMIN 권한을 가진 사용자들에게 GET 요청이 가능하도록 권한 부여의 의미 */
-                      .requestMatchers(new AntPathRequestMatcher("/user/**", "GET")).hasRole("ENTERPRISE")
+                      .requestMatchers(new AntPathRequestMatcher("/users/**", "GET")).hasRole("ENTERPRISE")
+                      .requestMatchers(new AntPathRequestMatcher("/actuator/**")).permitAll()
                         /* 설명. 그 외의 요청은 권한 거부 */
                       .anyRequest().authenticated()
         )

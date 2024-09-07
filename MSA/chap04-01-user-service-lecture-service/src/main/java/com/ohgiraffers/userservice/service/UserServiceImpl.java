@@ -1,8 +1,10 @@
 package com.ohgiraffers.userservice.service;
 
 import com.ohgiraffers.userservice.aggregate.UserEntity;
+import com.ohgiraffers.userservice.client.OrderServiceClient;
 import com.ohgiraffers.userservice.dto.UserDTO;
 import com.ohgiraffers.userservice.repository.UserRepository;
+import com.ohgiraffers.userservice.vo.ResponseOrder;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -31,14 +33,17 @@ public class UserServiceImpl implements UserService{
 
     /* 설명. security 모듈 추가 후 암호화를 위해 BCryptPasswordEncoder bean 주입*/
     BCryptPasswordEncoder bCryptPasswordEncoder;
+    OrderServiceClient orderServiceClient;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            ModelMapper modelMapper,
-                           BCryptPasswordEncoder bCryptPasswordEncoder) {
+                           BCryptPasswordEncoder bCryptPasswordEncoder,
+                           OrderServiceClient orderServiceClient) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.orderServiceClient = orderServiceClient;
     }
 
     @Override
@@ -96,6 +101,14 @@ public class UserServiceImpl implements UserService{
         UserEntity userEntity = userRepository.findById(Long.parseLong(memNo)).get();
 
         UserDTO userDTO = modelMapper.map(userEntity, UserDTO.class);
+
+        /* 설명. FeignClient 추가 이(main쪽에 어노테이션  추가 필요) */
+        /* 설명. order service에서 구현한 getUserOrders라는 메소드를 가져와서 사용하는 개념 - 외부 서비스의 기능을 가져오는 개념 */
+        List<ResponseOrder> orderList = orderServiceClient.getUserOrders(memNo); //  infra 서버의 메소드로 구현
+
+        log.info("회원의 주문 내역: {}", orderList);
+
+        userDTO.setOrders(orderList);
 
         return userDTO;
     }

@@ -41,18 +41,16 @@ public class JwtFilter extends OncePerRequestFilter {
         if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.substring(7);    // "Bearer "를 제외한 뒤에 토큰 부분만 추출
             log.info("토큰 값: " + token);
-            if(jwtUtil.validateToken(token)){       // validation 체크를 jwtUtil에게 넘긴다.
+            if(jwtUtil.validateToken(token)) {     // validation 체크를 jwtUtil에게 넘긴다.
                 /* 설명. 유효한 토큰이므로 토큰에서 Authentication을 추출함 */
                 Authentication authentication = jwtUtil.getAuthentication(token);
                 log.info("JwtFilter를 통과한 유효한 토큰을 통해 security가 관리할 principal 객체ㅣ {}", authentication);
                 /* 설명. 직접 SecurityContextHolder에 넣었음으로 인증 완료 되었음을 의미 => 이후 다음 필터들을 건너뜀*/
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                SecurityContextHolder.getContext().setAuthentication(authentication);   // 인증이 완료되었고 이후 필터 건너뜀
             }
         }
 
         /* 설명. 위의 if문으로 인증된 Authentication 객체가 principal 객체로 관리되지 않는다면 다음 필터 실행*/
         filterChain.doFilter(request, response);    // 실행 될 다음 필터는 UsernamePasswordAuthentication(로그인용 필터)
     }
-
-
 }
