@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @keyframes trans1 {
+            from {
+                background: green;
+            }
+            to {
+                background: yellow;
+                border-radius: 50px;
+                transform: rotateX(360deg);
+                border: 3px solid red;
+            }
+        }
+
+        @keyframes trans2 {
+            0% {
+                background-color: green;
+                border: 3px solid black;
+            }
+            30% {
+                transform: translate(50px, 50px);
+            }
+            50% {
+                background-color: hotpink;
+                transform: scale(1.2);
+                border: 3px solid yellow;
+            }
+            100% {
+                background-color: blue;
+                transform: rotateZ(45deg);
+                border: 3px solid red;
+            }
+        }
+
+        .div1 {
+            margin: 100px;
+            width: 100px;
+            height: 100px;
+            background: gray;
+            animation-name: trans1;
+            animation-duration: 5s;
+            animation-direction: alternate-reverse;
+            animation-iteration-count: 2;
+        }
+
+        .div2 {
+            margin: 100px;
+            width: 100px;
+            height: 100px;
+            animation-name: trans2;
+            animation-duration: 1s;
+            
+            /* animation-direction 속성은 애니메이션의 진행 방향을 설정한다.
+                - normal: 애니메이션을 정방향으로 재생 (기본값)
+                - reverse: 애니메이션을 역방향으로 재생
+                - alternate: 애니메이션을 정방향과 역방향으로 번갈아 재생
+                - alternate-reverse: 애니메이션을 역방향과 정방향으로 번갈아 재생
+            */
+            animation-direction: alternate;
+
+            /* animation-iteration-count 속성은 애니메이션이 몇 번 반복될지를 설정한다.
+                - 숫자 값: 애니메이션이 지정된 횟수만큼 반복
+                - infinite: 애니메이션이 무한히 반복
+            */
+            animation-iteration-count: infinite;
+        }
+
+        img {
+            margin: 100px;
+            width: 100px;
+            height: 100px;
+            animation-name: trans2;
+            animation-duration: 1s;
+            animation-direction: alternate;
+            animation-iteration-count: infinite;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <h1>애니메이션</h1>
+    <p>@keyframes를 활용해 변형들을 묶어서 적용하면 애니메이션의 개념이 된다.</p>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <img src="sample/image/city1.PNG" alt="">
+</body>
+</html>
