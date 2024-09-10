@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: blue;
+            width: 500px;
+            height: 50px;
+        }
+        .main-content {
+            display: flex;
+            width: 500px;
+        }
+        nav {
+            width: 80px;
+            height: 300px;
+            background: red;
+        }
+        section {
+            width: 340px;
+            height: 300px;
+            background: green;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        article {
+            width: 300px;
+            height: 90px;
+            margin: auto;
+        }
+        .a1 { background: yellowgreen; }
+        .a2 { background: pink; }
+        .a3 { background: cyan; }
+        aside {
+            width: 80px;
+            height: 300px;
+            background: cornsilk;
+        }
+        footer {
+            width: 500px;
+            background: purple;
+        }
+    </style>
+</head>
+<body>
+    <h1>페이지 레이아웃 설정</h1>
+    <header>header</header>
+    <div class="main-content">
+        <nav>nav</nav>
+        <section>section
+            <article class="a1">article</article>
+            <article class="a2">article</article>
+            <article class="a3">article</article>
+        </section>
+        <aside>aside</aside>
+    </div>
+    <footer>footer</footer>
+</body>
+</html>
