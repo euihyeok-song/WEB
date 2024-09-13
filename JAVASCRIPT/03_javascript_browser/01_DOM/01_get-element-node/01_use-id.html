@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .area {
+            width: 100px;
+            height: 100px;
+            border: 1px solid lightgray;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <h1>01. id를 이용한 요소 노드 취득</h1>
+    
+    <div id="area1" class="area">
+        div 영역1
+        <p id="area3">p 영역</p>
+    </div>
+
+    <!-- <div id="area1" class="area"> -->
+    <div id="area2" class="area">
+        div 영역2
+    </div>
+    <script>
+        const $elem = document.getElementById('area1');
+        console.log($elem);
+        console.log($elem.style);
+        $elem.style.backgroundColor = 'red';
+        $elem.style['background-color'] = 'blue';
+
+        const $elemNull = document.getElementById("area4");
+        console.log($elemNull);
+    </script>
+</body>
+</html>

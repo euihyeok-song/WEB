@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>01. innerHTML</h1>
+    <p>innerHTML은 요소 노드를 취득하거나 변경할 때 사용한다.</p>
+
+    <div id="area">
+        태그 엘리먼트의 값을 읽거나, 변경할 때 <span>innerHTML</span>속성을 사용함
+    </div>
+    <script>
+        const $area = document.getElementById('area');
+        console.log($area.innerHTML);
+
+        $area.innerHTML = $area.innerHTML + '값 추가';      // 누적
+
+        $area.innerHTML ='<h1>innerHTML</h1>속성으로 값 변경';
+        $area.innerText ='<h1>innerHTML</h1>속성으로 값 변경';
+
+        $area.innerHTML = '';
+    </script>
+</body>
+</html>
