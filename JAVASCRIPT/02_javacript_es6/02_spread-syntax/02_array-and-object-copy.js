@@ -7,7 +7,7 @@ let arrCopy = [...arr];         // 스프레드 문법을 활용한 깊은 복�
 
 console.log(arr);
 console.log(arrCopy);
-console.log(arr === arrCopy);
+console.log(arr === arrCopy);             // False => 내부 값은 동일하지만 깊은 복사여서 배열 자체는 다름
 
 /* 2. 객체 복사 */
 let obj = {
@@ -21,10 +21,10 @@ let objCopy = {...obj};
 
 console.log(obj);
 console.log(objCopy);
-console.log(obj === objCopy);
+console.log(obj === objCopy);           // False => 내부 값은 동일하지만 깊은 복사여서 객체 자체는 다름
 
 /* 추가적으로 나머지 연산 개념으로 활용도 가능하다. */
-let classNum = 30;                           // 기존 obj에 없고 추가되는 개념
-let name = '강감찬';                         // 기존과 다른 name
-let newObj = {classNum, ...obj, name};      // 나머지(rest) 연산자(순서를 유의해서 하자.)
+let classNum = 30;                       // 기존 obj에 없고 추가되는 개념
+let name = '강감찬';                        // 기존과 다른 name
+let newObj = {classNum, ...obj, name};      // 나머지(rest) 연산자(순서를 유의해서 하자.) => 흩뿌리고 수정할 부분 덮어씌우기
 console.log(newObj);

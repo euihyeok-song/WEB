@@ -1,8 +1,8 @@
-/* 스프레드 문법, 전개 문법 */
+/* 스프레드 문법, 전개(펼치는 용도) 문법 */
 
 let arr = [10, 30, 20];
-console.log(arr);
-console.log(...arr);
+console.log(arr);         // [10, 30, 20]
+console.log(...arr);      // 배열 내부에 있는 요소들을 흩뿌려주는 느낌 => 10, 30, 20
 
 console.log(`가장 큰 값: ${Math.max(10, 30, 20)}`);
 console.log(`가장 큰 값: ${Math.max(...arr)}`);
