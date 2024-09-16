@@ -16,11 +16,15 @@
         const $area = document.getElementById('area');
         console.log($area.innerHTML);
 
+        /* 왼쪽 innerHTML(Setter 역할) , 오른쪽 innerHTML(Getter 역할) */
         $area.innerHTML = $area.innerHTML + '값 추가';      // 누적
 
+        /* innerHTML은 태그를 인지해줌으로 태그가 적용되어서 나옴 */
         $area.innerHTML ='<h1>innerHTML</h1>속성으로 값 변경';
+        /* innerText는 태그를 인지해주지 않음으로 텍스트 그대로 나옴 */
         $area.innerText ='<h1>innerHTML</h1>속성으로 값 변경';
 
+        /* 지우기 */
         $area.innerHTML = '';
     </script>
 </body>

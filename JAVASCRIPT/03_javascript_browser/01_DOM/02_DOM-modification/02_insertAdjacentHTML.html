@@ -22,12 +22,14 @@
         insertAdjacentHTML 메소드 사용 테스트
     </div>
     <script>
+        /* target */
         const $area = document.getElementById('area');
 
-        $area.insertAdjacentHTML('beforebegin', '<h1>beforebegin 테스트</h1>');
-        $area.insertAdjacentHTML('afterbegin', '<h1>afterbegin 테스트</h1>');
-        $area.insertAdjacentHTML('beforeend', '<h1>beforeend 테스트</h1>');
-        $area.insertAdjacentHTML('afterend', '<h1>afterend 테스트</h1>');
+        /* DOM 조작 */
+        $area.insertAdjacentHTML('beforebegin', '<h1>beforebegin 테스트</h1>'); // target 적용 전
+        $area.insertAdjacentHTML('afterbegin', '<h1>afterbegin 테스트</h1>');   // target 인지 후 적용 전
+        $area.insertAdjacentHTML('beforeend', '<h1>beforeend 테스트</h1>');     // target 안자 후 적용 후
+        $area.insertAdjacentHTML('afterend', '<h1>afterend 테스트</h1>');       // target 적용 후
     </script>
 </body>
 </html>

@@ -23,12 +23,15 @@
     </div>
 
     <script>
+        /* querySelector을 통해서 css의 . 클래스 선택자를 사용해 받아올 수 있다 */
         const $area = document.querySelector('.area');
         console.log($area);
 
+        /* 다중 선택 - NodeList라는 유사배열로 선언됨 */
         const $areas = document.querySelectorAll('.area');
         console.log($areas);
 
+        /* 태그도 querySelector로 받아올 수 있다. */
         const $firstP = document.querySelector('p');
         $firstP.style['background-color'] = 'green';
 

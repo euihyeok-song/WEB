@@ -25,7 +25,7 @@
         [...$drinks].forEach(drink => drink.style.color = 'red');
 
         const $coffee = document.getElementsByClassName('drink coffee');
-        console.log($coffee[0].innerHTML);  // 시작태그와 종료태그 사이(텍스트 노드)의 태그를 인식 O
+        console.log($coffee[0].innerHTML);  // 시작태그와 종료태그 사이(텍스트 노드)의 태그를 인식 O  -> DB에 tag까지 같이 넣을 떄 사용
         console.log($coffee[0].innerText);  // 시작태그와 종료태그 사이(텍스트 노드)의 태그를 인식 X
 
     </script>

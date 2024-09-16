@@ -20,10 +20,11 @@
     <script>
         const $ul = document.getElementById('food');
         console.log($ul);
-
+        
+        /* tag-name으로 가져올 수 있다. (위의 li 태그 6개를 가져옴) - HTMLColection을 담겨짐(순수 배열X , 유사 배열O) */
         const $lists = document.getElementsByTagName('li');
         console.log($lists);
-        console.log($lists[0]);
+        console.log($lists[0]); // 개발자도구의 console에서 찾아보면, innerHTML과 innerText에 속성으로 들어가는 걸 확인 가능
         console.log($lists[1]);
 
         let changeColor = 0;
@@ -35,7 +36,7 @@
         /* writable이 false이므로 순수 배열은 아니다.(유사 배열) */
         console.log(Object.getOwnPropertyDescriptors($lists));
 
-        // console.log([...$lists]);
+        // console.log([...$lists]);     // 유사배열을 순수배열로 만드는 방법 - 유사배열은 forEach 사용할 수 없지만 배열은 가능
         [...$lists].forEach(list => list.style.color = 'blue');
     </script>
 </body>
