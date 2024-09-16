@@ -15,11 +15,12 @@
     <script>
         const $button = document.getElementById('btn');
 
-        /* addEventListener를 통해 각 이벤트와 이벤트 핸들러를 추가할 수 있다.(중복 이벤트도 가능) */
+        /* 모든 DOM 요소들은 addEventListener를 통해 각 이벤트와 이벤트 핸들러를 추가할 수 있다. */
         $button.addEventListener('click', function() {
             alert('클릭했네?');
         });
 
+        /* 하나의 이벤트에 여러가지 이벤트 헨들러를 적용할 수 있다. */
         $button.addEventListener('click', function() {
             console.log('addEventListener 메소드 방식의 이벤트 핸들러 등록!');
         });

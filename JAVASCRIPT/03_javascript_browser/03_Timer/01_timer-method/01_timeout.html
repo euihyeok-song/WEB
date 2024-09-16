@@ -9,6 +9,9 @@
     <h1>01. timeout</h1>
 
     <h3>setTimeout</h3>
+    
+    <!-- 비동기 함수: 페이지 실행 시 로딩되는 것과는 별개로 따로 동작하는 함수 -->
+    <!-- setTimeout(func, time, .. ) -> time이 흐르고 나서 ...을 인자로 가지며 func를 동작시켜줌 -->
     <p>setTimeout(func, time, arg1, ...);<br>
 
         setTimeout 함수는 두번째 인수로 전달 받은 시간(ms, 1/1000초)으로 단 한번 동작하는 타이머를 생성한다. 
@@ -17,17 +20,18 @@
     </p>
 
     <script>
-        setTimeout(() => console.log('실행'), 2000);
-        console.log('script 끝!');
+        setTimeout(() => console.log('실행'), 2000);        // miliseconds 단위로 이는 2초를 의미
+        console.log('script 끝!');                          // 위는 비동기이므로 이 console과는 다른 병렬로 처리 
     </script>
 
     <button onclick="clearTimeoutFunc();">당장 취소</button>
     <script>
         const timeId = window.setTimeout(() => console.log('나는 곧 취소 될꺼야'), 6000);
-
+        
         function clearTimeoutFunc() {
             console.log('곧이 아니라 지금 당장 취소');
-
+            
+            /* clearTimeout은 setTimeout이 실행되기 전에 실행되면 setTimer Id에 해당하는 timer를 멈춘다. */
             window.clearTimeout(timeId);
         }
     </script>

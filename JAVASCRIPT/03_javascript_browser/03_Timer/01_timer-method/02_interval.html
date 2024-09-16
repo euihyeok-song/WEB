@@ -12,9 +12,11 @@
 
     <script>
         let count = 0;
+        /* setInterval()은 지정된 시간마다 반복되어 작동함 - polling 방식에서 많이 사용됨 */
         const timeId = setInterval(() => {
             console.log(count++);
             if(count == 6) {
+                /* setInterval을 멈출 수 있음 */
                 clearInterval(timeId);
                 console.log('interval timer 종료!');
             }
