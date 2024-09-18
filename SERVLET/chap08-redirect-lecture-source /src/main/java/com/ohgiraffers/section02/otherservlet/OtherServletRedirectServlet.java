@@ -22,7 +22,7 @@ public class OtherServletRedirectServlet extends HttpServlet {
         *
         *  설명.
         *   추가로, cookie나 session같은 공간을 활용하면 이러한 redirect의 단점을 보완할 수 있다.
-        *   (적당히 적은 데이터는 쿼리스트링(Querystring)으로 해결할 수도 있다.
+        *   (적당히 적은 데이터는 쿼리스트링(Querystring)으로 해결할 수도 있다.)
         * */
 //        resp.sendRedirect("redirect");                  // 챙겨가는 것없이 경로만 넣어준다
         resp.sendRedirect("redirect?test=abc");

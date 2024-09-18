@@ -20,7 +20,8 @@ public class RedirectServlet extends HttpServlet {
         *      (insert와 같은 경우) 리다이렉트를 사용한다.
         *
         *  설명
-        *   - 포워딩은 request와 attribute를 활용하여 다음 서블릿으로 값을 넘겨줄 수 있다.
+        *   - 포워딩은 request(Client로 부터 받은 값)와 attribute(그 값을 통해 내부적으로 작업후 응답으로 보낼 값)를 활용하여
+        *     다음 서블릿으로 값을 넘겨줄 수 있다.
         *   - 리다이렉트는 쿼리스트링 형태로 parameter의 개념(또는 쿠키나 세션 활용)을 활용하여 값을 넘겨줄 수 있다. */
         System.out.println("Redirect 되어 온 곳에서 request 값 홛인: " + req.getAttribute("test"));
         System.out.println("Redirect 되어 온 곳에서 request 값 홛인: " + req.getParameter("test"));

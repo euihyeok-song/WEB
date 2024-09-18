@@ -9,11 +9,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 
+/* doGet과 doPost만 사용하는데에는 HttpServlet만 상속받아도 상관 X */
 @WebServlet("/querystring")
 public class QueryString extends HttpServlet {
 
     /* 설명. querystring으로부터 입력값 + 위치값이 들어옴
-    *       Controller(servlet)가 하는 일 => 1. 입력값 받아오기 2. 받아온 입력을 가공처리 */
+    *       Controller(servlet)가 하는 일
+    *       => 1. 입력값 받아오기 2. 받아온 입력을 가공처리(ex. 원하는 형으로 자료형 변환후 받아온 값을 DTO에 넣어 뭉치는 개념)
+    * */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         /* 설명. name(key)=홍길동(value)&age(key)=12(value)와 같은 형식으로 들어와서 &을 구분자로 짤라서 key만 받아옴

@@ -1,4 +1,4 @@
-package com.ohgiraffers.section01.servicemethod;
+  package com.ohgiraffers.section01.servicemethod;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/request-service")                         // annotation 활용 <a 태그를 통해 이쪽으로 옴
+@WebServlet("/request-service")                 // annotation 활용 <a 태그를 통해 이쪽으로 옴 + url 입력하면 이 페이지로 옴
 public class ServiceMethodTestServlet extends HttpServlet {
 
     @Override
@@ -30,22 +30,18 @@ public class ServiceMethodTestServlet extends HttpServlet {
         System.out.println("res = " + res);
 
         /* 설명. HttpServletRequest로 다운캐스팅 후 출력 => HttpServletRequest만 사용가능한 메소드가 존재 */
+        /* 들어오는 요청이 Get인지 Post인지를 확인하기 위한 메소드 사용을 위해 추가 */
         HttpServletRequest httpRequest = (HttpServletRequest)req;
         HttpServletResponse httpResponse = (HttpServletResponse) res;
 
         String httpMethod = httpRequest.getMethod();    
         System.out.println("요청 방식: " + httpMethod);
 
+        /* NullPointerException 방지를 위해 eqauls 메소드에 "" 문자열을 먼저 써줌 */
         if("GET".equals(httpMethod)){
             doGet(httpRequest, httpResponse);
         } else if("POST".equals(httpMethod)) {
             doPost(httpRequest, httpResponse);
         }
-
-
-
-
-
-
     }
 }

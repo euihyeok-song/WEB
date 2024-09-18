@@ -20,6 +20,7 @@ public class ResponseHeaderPrintServlet extends HttpServlet {
         /* 설명. 서버의 현재 시간을 동적 페이지로 만들어 내보내 보자. */
         resp.setContentType("text/html");
 
+        /* response를 보낼 Stream 통로 *
         PrintWriter out = resp.getWriter();
 
         long currentTime = System.currentTimeMillis();

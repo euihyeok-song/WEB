@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 
 import java.io.IOException;
 
+/* HttpServlet을 상속해줘야 자동으로 Tomcat이 자동으로 인지할 수 있음 */
 public class LifeCycleTestServlet extends HttpServlet {
 
     /* 설명. 기본 생성자 */

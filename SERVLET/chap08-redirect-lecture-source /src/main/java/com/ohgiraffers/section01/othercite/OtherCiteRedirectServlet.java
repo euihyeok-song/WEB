@@ -21,7 +21,7 @@ public class OtherCiteRedirectServlet extends HttpServlet {
 
         /* 설명. URI = resource를 식별 할 수 있도록 해줌
         *   1. URN = 계층 구조가 아니고, 자원마다 이름(Name)이 존재하기 떄문에 이름으로 사용 (잘 쓰이지는 X) - Ipv4, Ipv6개념
-        *   2. URL = URI와 동일한 개념으로 계층구조를 사용
+        *   2. URL = URI와 동일한 개념으로 계층구조를 사용(Location)
         *
         *  설명. "http://www.naver.com/board/1?content=abc
         *   1. http: = scheme protocol

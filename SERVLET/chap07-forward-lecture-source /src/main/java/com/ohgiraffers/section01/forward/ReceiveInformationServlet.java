@@ -30,6 +30,7 @@ public class ReceiveInformationServlet extends HttpServlet {
         *   다른 servlet을 만들어서 넘겨줘서(request를 넘겨줌-attribute사용) 진행
         * */
 
+        /* ex. id와 pw로 인증 후 DB에서 해당 회원 이름 받아옴 */
         req.setAttribute("userName","홍길동");
 
         /* 설명. 다른 servlet에게 역할을 위임하는 개념 - (ex. 출력잘하는 친구(print)에게 넘겨주는 개념)*/

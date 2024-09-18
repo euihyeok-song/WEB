@@ -28,7 +28,7 @@ public class ResponseTestServlet extends HttpServlet {
 //        resp.setContentType("text/plain");            // 지금 내보내는 문자열이 단순한 텍스트라는 MIME
 
         /* 설명. 1. Tomcat 버전 상관 없이 내보내는 데이터의 종류와 인코딩을 명시할 시 */
-        resp.setContentType("text/html");             // MIME는 생략해도 되지만, 생략했을시 한글은 깨진다. 생략하지 않으면 한글 안깨짐
+        resp.setContentType("text/html");   //MIME타입 => MIME는 생략해도 되지만, 생략했을시 한글은 깨진다. 생략하지 않으면 한글 안깨짐
         resp.setCharacterEncoding("UTF-8");
 
         /* 설명. 1-1. 기존 정석 1의 한줄 코드=>  알고있자~!!*/
