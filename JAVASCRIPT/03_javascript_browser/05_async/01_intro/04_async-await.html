@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function increase(number){
+
+            const promise = new Promise((resolve, reject) => {
+                
+                setTimeout(() => {
+                    const result = number + 10;
+
+                    if(result > 50) {       
+                        const e = new Error('NumberTooBig');       
+                        return reject(e);         
+                    }  
+
+                    return resolve(result);         
+                }, 1000);
+            })
+
+            return promise;
+        }
+
+        /*
+            await의 두가지 기능
+            1. await가 달린 함수의 결과인 promise 객체에 담긴 결과(성공/실패)를 반환한다. (then과 비슷)
+            2. await가 달린 비동기 처리들은 그들 간에는 동기식으로 동작하게 된다.
+
+            then 메소드를 쓰는 것 같은 callback 함수는 필요 ㅇ벗지만 전체를 감싸는 async 함수는 반드시 필요
+            (주의: await를 쓰기 위해서 함수에 async를 달면 그 async 함수는 promise를 반환한다.)
+        */
+
+        async function run(){
+        
+            let result = await increase(0);
+            console.log(result);
+
+            /* 비동기 호출 - 서버 상태에 따라 순서가 안 지켜질 수 있다. -> await 사용하면 해결*/
+            result = await increase(result);
+            console.log(result);
+
+            result = await increase(result);
+            console.log(result);
+
+            result = await increase(result);
+            console.log(result);
+
+            result = await increase(result);
+            console.log(result);
+
+            console.log('end');
+
+            return 1;
+        }
+
+        // run();
+
+        /* async 함수의 반환값이 promise 객체인 것을 홗인 */
+        console.log(run());         
+        run().then(result => console.log(result));      // promise 객체에서 async함수의 반환 값을 then으로 추출해 봄
+    </script>
+</body>
+</html>

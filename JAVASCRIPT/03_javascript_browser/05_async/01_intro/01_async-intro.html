@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+        /* 
+            동기 작업과 비동기 작업
+            동기 작업: 하나의 작업을 실행하고 마친 뒤에 다음 작업을 순차적으로 진행함(블로킹)
+            비동기 작업: 메인 흐름은 멈추지 않는 상태에서 특정 작업들을 백그라운드에서 처리하여
+                        동시에 처리하는 것 처럼 실행함(넌블로킹)
+
+            (비동기 작업을 할 때는 [특정 시점에 실행 될] 콜백 함수를 같이 명시하여 주로 사용하게 된다.)
+            => 일반적으로 외부 서비스에서 값을 받아와서 콜백함수를 통해 따로 비동기 작업을 진행
+        */
+
+        /* 함수 hoisting이 일언나서 익명함수는 먼저 선언 가능 */
+        function sayHello() {
+            consoel.log('Hello World!');
+        }
+        
+        //sayHello();
+        /* 앞의 sayHello가 실행 된 후 실행된다 => 동기식 방식 */
+        //console.log('end');
+
+        /* setTimeout은 고차함수이며 sayHello의 콜백으로 불려옴 */
+        setTimeout(sayHello, 3000);
+        console.log('end');
+
+    </script>
+</body>
+</html>

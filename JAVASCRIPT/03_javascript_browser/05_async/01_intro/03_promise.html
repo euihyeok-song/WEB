@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        /* 이후에 배울 fetch나 axios 함수들이 지금의 increase처럼 promise 객체라는걸 반환한다. */
+        function increase(number){
+
+            /*
+                resolve: 비동기 성공 시 실행 될 메소드
+                reject: 비동기 실패 시 실행 될 메소드
+                (Promise 객체 내부적으로 비동기 실행 후 동작하는 메소드)
+            */
+
+            /* Promise 객체: 비동기 결과(성공/실패)를 가진 객체(promise 메소드를 활용해서 콜백 지옥을 해결하기 위해 사용됨) */
+            const promise = new Promise((resolve, reject) => {
+                
+                /* 비동기 함수 호출 */
+                setTimeout(() => {
+                    const result = number + 10;
+
+                    if(result > 50) {       // 50 이상은 일종의 비동기 실패의 개념을 Error를 활용하여 작성
+                        const e = new Error('NumberTooBig');       // js는 Error객체에 원하는 메시지를 넣어 처리 가능
+
+                        return reject(e);           // 실패 했을 경우
+                    }
+
+                    return resolve(result);         // 성공 했을 경우
+                }, 1000);
+            })
+
+            return promise;
+        }
+        console.log(increase(0));
+        //console.log(increase(50));
+
+        
+        /* promise 객체의 성공 값인 prototype([[]])는 직접 접근하여 값을 뽑아 낼 수 X */
+        //console.log('직접 접근: ', increase(0)['[[PromiseResult]]']);
+
+
+        /* Promise객체의 then 메소드를 사용하면 성공 값을 뽑아 낼 수 O */
+        //increase(0).then(number => {   // 성공값이 number로 들어감
+        //    console.log('성공 값: ', number);
+        //});
+
+
+        /* then을 사용하여서 callback 지옥을 방지 가능 */
+        increase(0)
+            .then(result => {
+                console.log(result);
+                
+                /* then 내부의 비동기 함수를 시행하고 결과값을 promise 객체로 받음 */
+                return increase(result);
+            })
+            /* 메소드 체이닝 */
+            .then(result => {
+                console.log(result);
+
+                return increase(result);
+            })
+            .then(result => {
+                console.log(result);
+
+                return increase(result);
+            })
+            .then(result => {
+                console.log(result);
+
+                return increase(result);
+            })
+            //.then(result => {         // error 발생으로 catch 확인용
+            //    console.log(result);
+
+            //    return increase(result);
+            //})
+            .then(result => {
+                console.log(result);
+                console.log('end');
+            })
+            .catch(error => console.log(error))     // 에러를 핸들러 처리 할 수 있다.
+            .finally(() => console.log('반드시 해야되는 구문'));
+
+
+            /* 
+                then: 이전 작업이 성공적으로 완료되었을 때 promise에 담긴 성공 값을 추출하여 확인하는 콜백함수가 동작하는 메소드
+                catch: 작업 중 에러가 발생했을 때 호출되는 메소드
+                finally: 작업이 성공하든 실패하든 상관없이 항상 실행되는 메소드
+
+                (이 메소드들을 통해 들여쓰기가 줄어들어(일정해짐) 가독성이 좋아지고 유지보수성이 향상된다.)
+            */
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function increase(number, callback){
+            
+            /* 비동기 호출 - 서버의 상태에 따라 매번 출력되는 순서가 다를 수 있다(순서 맞추는 과정 필요) */
+            setTimeout(() => {
+                const result = number + 10;
+                if(callback){       // callback함수가 넘어왔다면
+                    callback(result);
+                }
+            }, 1000);         // () => {} 도 콜백함수이며, 비동기로 1초후에 실행됨
+
+            //setTimeout(() => {
+            //    const result = number + 20;
+            //    if(callback){      
+            //        callback(result);
+            //    }
+            //}, 1000);         
+
+            //setTimeout(() => {
+            //    const result = number + 30;
+            //    if(callback){       
+            //        callback(result);
+            //    }
+            //}, 1000);         
+        }
+        
+        /* 
+        단순히 메소드 하나를 호출해 비동기를 나열하는 것은 어렵지 않다.
+        (하지만 순서가 경우에 따라 보장되지 않을 수 있다. 또한, non-block이다)
+        */
+        // increase(0, result => console.log(result));    // callback함수를 지정해서 넘겨줌
+
+        /*
+            여러번 순차적으로 비동기 함수 호출의 결과들을 다음 콜백 함수로 던지기 위해서는
+            콜백 중첩을 사용해서 호출할 수 있다.
+
+            하지만 이러한 형태는 가독성도 좋지 않고 유지보수도 힘든 피해야 할 패턴(안티 패턴) 중 하나이다.
+            이러한 형태를 볼백 지옥(callback hell)이라고 하고 사용하지 않도록 하자.
+
+            (바깥쪽 비동기 처리가 끝나고 backstage에 callback 함수가 나중에 인지되어 안쪽 비동기 처리가 이후에 시작된다.)
+        */
+        increase(0, result => {
+            console.log(result);
+            increase(result,result => {
+                console.log(result);
+                increase(result,result => {
+                    console.log(result);
+                    increase(result,result => {
+                        console.log(result);
+                        increase(result,result => {
+                            console.log(result);
+                            console.log('end');
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
