@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        async function callAPI() {
+            
+            /* Js에서의 비동기 함수 기본 */
+            const promise = fetch('https://jsonplaceholder.typicode.com/users'); // fetch의 반환값은 promise객체
+            console.log(promise);       // 통신에 성공하면 결과값으로 Response를 받음
+
+            /* fetch의 결과로 비동기 api 통신 이후 promise 관련 추가적인 정보들 확인 */
+            //const result = await promise;         // awiat를 통해 promise 상자(성공 값)을 까서 값을 받음 
+                                                  // => Promise객체에 결과가 response객체로 담겨서 나옴
+
+            //const jsonPromise =  result.json();   // json 문자열 -> js의 객체로 파싱(결과는 promise)
+                                                  // => Promise객체에 결과가 array로 나옴
+            //console.log(jsonPromise);         
+
+            //const array = await jsonPromise;       // promise객체를 awiat로 값을 꺼내서 저장해줌 
+            //console.log(array);
+
+
+            /* 1. promise를 then 메소드 활용 */
+            promise.then(response => {
+                console.log('then을 통한 fetch 이후 promise의 결과: ', response);
+            })
+            
+            /* 2. async await 방식 활용 */
+            const response = await promise;
+            console.log('await를 통한 fetch 이후 promise의 결과: ', response);
+            
+            /* 3. fetch의 결과로 돌아온 추가적인 정보들 확인 */
+
+            /* 3-1. status 확인 */
+            console.log(`응답 상태: ${response.status}`);
+
+            /* 3-2. headers 확인 - 2가지 방식 */
+            console.log('응답 헤더');
+            console.log(`response.headers: ${response.headers}`);           // 복잡한 결과값이 나옴
+            //console.log(`헤더 하나 추출: ${response.headers[Symbol.iterator]().next().value}`);   // 단순한 결과값 나옴
+
+            /* 3-2-1. 어려운 방식 (권장 X) */
+            //const headerIterator = response.headers[Symbol.iterator]();     // Headers 객체의 iterator를 반환
+            //let headerEntry = headerIterator.next();        // {value:[key, value], done: boolean}
+
+            //console.log(headerEntry);
+
+            //while(!headerEntry.done){
+            //    const [key, value] = headerEntry.value;     // 다음 Header의 key와 value 한쌍
+            //    console.log(`${key}: ${value}`);
+            //    headerEntry = headerIterator.next();        // 다음 단계로 넘어감 
+            //}
+
+            /* 3-2-2. 쉬운 방식 (forOf문 이용 -> 배열할당 이용) */
+            /*
+                for in문: 객체의 프로퍼티들을 순회하며 확인하기 위한 반복문
+                for of문: Symbol.iterator를 구현한(iterator한) 컬렉션 아빌들을 반복하기 위한 반복문
+
+                for(let [key, value] of response.headers)
+                Symbol.iterator 메소드를 실행해 done이 true(모든 것을 순회 했을 때)가 되기 전까지 반복하여 확인 가능
+            */
+            for(let [key, value] of response.headers){      // 48,49,53,54줄을 자동으로 해줌 + 첫번째 요소를 key, 두번째 요소를 value에 저장
+                console.log(`${key}: ${value}`);
+            }
+
+            /* 3-3. bodyUsed */
+            console.log(`본문 내용(주로 json으로 넘어오는 body 내용) 사용 여부: ${response.bodyUsed}`); // 사용 전: false
+
+            /*
+                response를 json으로 파싱하면 파싱된 성공 결과를 지닌 promise 객체가 반환되고 await로 성공 결과를 꺼낼 수 있다.
+                그렇게 꺼낸 성공 결과는 파싱되어 있어 js의 객체(일반 객체 or 배열)가 들어있다.
+
+                json() 또는 text()를 하면 response 객체의 body를 사용한 것으로 두 개를 동시에 사용할 수 없다.
+                둘 다 적용하고 싶다면 json()해서 js의 객체로 받아낸 후 JSON.stringify()를 통해 문자열로 바꿔 사용할 수 있다.
+            */
+
+            /* 1번 방식: json으로 받기 */
+            const json = await response.json(); // 값을 불러오는 작업은 1번만 가능(불러오면 이후에 json 파싱 불가) - 덮어씌워지기 방지
+            console.log(json);     
+            
+            /* 2번 방식: text로 받기 */
+            //const responseText = await response.text(); // js객체로 해석하지 않고 그냥 text로 추출 (배열이 아닌 문자열로 뽑힘)
+            //console.log(responseText);
+            console.log(JSON.stringify(json));  // 다시 파싱할 필요 없이 json 객체를 문자열로 치환하면 둘다 사용 가능 (통신을 2번 안해도 가능)
+
+            console.log(`본문 내용 사용 여부: ${response.bodyUsed}`);   // 사용 후: true -> 이 이후에는 json 파싱이 불가
+        }
+        
+        callAPI();
+    </script>
+</body>
+</html>
