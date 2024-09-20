@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{ message }}</h1>     <!-- 아래서 넘겨준 message 변수가 넘어오지만, 반영되기 까지는 아주 잠깐의 시간이 걸리는데 이를 Tick이라 함-->
+        <button @click="updateMessage">Update Message</button>
+    </div>
+    <script>
+        const {createApp, ref, nextTick} = Vue;
+
+        createApp({
+            setup() {
+                const message = ref('Hello, Vue!');
+
+                async function updateMessage() {
+                    
+                    /* 반응형 변수인 message를 수정(즉시 message는 수정되지만 DOM은 update되지 않음(함수가 끝날 때까지) */
+                    console.log('message 변화 전: ', document.querySelector('h1').innerText);
+
+                    message.value = '안녕, 뷰!';
+
+                    /* DOM이 update 되기 전인 tick을 지나가게 함 - 선언해주지 않으면 message,value='안녕, 뷰!'가 DOM에 적용되지 X */
+                    await nextTick(); // 비동기 함수 - await를 걸어줘야 이것이 끝날때까지 아래부분이 실행되지 X
+
+                    console.log('message 변화 후: ', document.querySelector('h1').innerText);
+                }
+
+                return {
+                    message,
+                    updateMessage
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
