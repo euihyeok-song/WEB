@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <!--
+        v-bind Vue.js에서 HTML 요소의 속성을 동적으로 바인딩할 수 있게 해주는 디렉티브(지시자)이다.
+        v-bind: 는 생력가능하며 :(콜론)만 작성해도 된다.(ex. v-bind:class -> :class)
+    -->
+    
+    <div id="step01">
+        <h5>디증 속성 바인딩</h5>
+        <div v-bind="multiAttr">{{ multiAttr }}</div>       <!-- v-bind에 객체를 주입함으로써 다중 속성 바인딩 가능. multiAttr에서 id는 어트리부트 명, "multiId"는 클래스 명이 됨-->
+        <button @click ="fun">ref에 담긴 객체 접근</button>
+    </div>
+
+    <script>
+        const {createApp, ref, reactive} = Vue;
+
+        createApp({
+            setup() {
+
+                const multiAttr = ref({
+                    id: "multiId",
+                    class: "multiClass",
+                    value: "multiValue"
+                })
+
+                const fun = () => {
+                    console.log(multiAttr.value);           // createApp내에서 객체로 접근하려면 .value를 써줘야함
+                    console.log(multiAttr.value.value);     // .value.value는 multiAttr객체의 값에 접근
+                }
+
+                return {
+                    multiAttr,
+                    fun
+                }
+            }
+        }).mount('#step01');
+    </script>
+</body>
+</html>

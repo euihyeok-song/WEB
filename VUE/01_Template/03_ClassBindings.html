@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <Style scoped> -->
+    <style>
+        .static {
+            width: 150px;
+            height: 100px;
+        }
+        
+        .active:hover{
+            background-color: red;
+        }
+
+        .error{
+            text-decoration: underline;
+        }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- <Template> -->
+
+
+    <!-- class 어튜리뷰트는 프로퍼티 값이 true인 프로퍼티 명이 클래스 명으로 추가된다. (false면 클래스 명에서 제거된다.) => css 적용시 많이 사용-->
+    <div id="step01">
+        <div :class="{active: isActive, static: isSize}"> <!-- v-bind가 앞에 생략됨 + 값이 true인 property 명이 class에 추가되는 의미 -->
+            {{ isActive }}
+        </div>
+    </div>
+
+    <div id="step02">
+        <div :class="classObj">{{ classObj }}</div>
+    </div>
+    <!-- <script setup> -->
+    <script>
+        const {createApp, ref, reactive} = Vue;
+
+        createApp({
+            setup() {
+                const isActive = ref(true);
+                const isSize = ref(true);
+
+                return {
+                    isActive,
+                    isSize
+                }
+            }
+        }).mount('#step01');
+
+        createApp({
+            setup() {
+                const isActive = ref(true);
+                const isSize = ref(true);
+
+                /* 객체로 마는 과정 */
+                const classObj = reactive({
+                    active: isActive,
+                    size: isSize
+                })
+
+                return {
+                    classObj
+                }
+            }
+        }).mount('#step02');
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="step01">
+
+        <!-- 
+            mounted() 훅에서 이 참조를 사용하여 다음과 같은 작업을 수행할 수 있다.
+            this.$refs.nameBox.focus()로 페이지 로드 시 input 요소에 자동으로 포커스를 줄 수 있고,
+            이러한 방식으로 템플릿의 DOM요소에 직접 접근하고 조작하는 것을 "TemplateRefs"라고 부른다.
+        -->
+
+        <!-- 
+            v-model은 createApp의 name과 양방향 바인딩 지원 
+            (input태그를 통해 입력해주는 값을 아래의 name에 적용하고 그 name이 label의 name도 바꿈 - Rerendering) 
+        -->
+        <label>name: </label><input type="text" ref="nameBox" v-model="name">  <!-- ref="nameBox"는 Template 전용 vue에서 쓰는 input 태그 선택자 -->
+        <br>
+        <label>입력 한 이름: {{ name }}</label>
+    </div>
+
+    <script>
+        const {createApp, ref} = Vue;
+
+        createApp({
+            setup() {
+
+                const name = ref('신사임당');     /* 초기값 설정 */
+
+                return {
+                    name
+                }
+            },
+            mounted() {     // lifecycle hook (뒤에서 다룰 예정) => mount를 통해 component가 화면에 부착되고 나서 실행됨 
+                console.log(this.$refs.nameBox);
+                this.$refs.nameBox.focus();         // nameBox임을 인지한 후 그곳에 깜빡이는 효과를 추가해줌 
+            }
+        }).mount('#step01');
+    </script>
+</body>
+</html>

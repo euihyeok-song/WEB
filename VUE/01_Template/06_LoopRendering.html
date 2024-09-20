@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        v-for
+        배열을 기준으로 항목 목록을 렌더링하는 지시문(directive)이다.
+    -->
+    <div id="step01">
+        <h5>과일가게</h5>
+        <h1>
+            <li v-for="item in items">{{ item }}</li>  <!-- v-for 태그가 있으면 넘겨주는 배열에서 값을 하나씩 뽑아서 출력해줌 -->
+        </h1>
+    </div>
+
+    <div id="step02">
+        <ul>
+            <li v-for="info in profile">
+                {{ info }}
+            </li>
+            <br>
+            <li v-for="(value, key, index) in profile">     <!-- value, key, index의 순서는 고정₩₩₩₩ -->
+                {{ index }}:{{ key }}:{{ value }}
+            </li>
+        </ul>
+    </div>
+
+    <!-- 
+        data 없이 범위만 있는 loop 렌더링
+        (필요한 데이터는 없지만 지시자(v-xxx)가 적용 되려면 뷰 인스턴스가 필요하다.)
+    -->
+    <div id="step03">
+        <ul>
+            <li v-for="n in 10">{{ n }}</li>
+        </ul>
+    </div>
+
+    <div id="step04">
+        <ul>
+            <!-- v-for와 v-if를 한번에 작성할 수는 없다. -->
+            <!-- <li v-for="item in items" v-if="item.state">{{ item }}</li> for문으로 item을 뽑자마자 if문에서 바로 사용은 불가능하다 -->
+            <template v-for="item in items">
+                <li v-if="item.state">      <!-- state가 true인 것만 화면에 뿌려짐 -->
+                    {{ item.name }}
+                </li>
+            </template>
+
+        </ul>
+    </div>
+
+    <!-- 
+        :key
+        Vue가 렌더링된 요소 목록을 업데이트 할 때 v-for는 기본적으로 반복되어 나온 DOM요소들 전체를 확인하게 된다.
+        이 때 Vue가 각 노드의 id를 추적할 수 있도록 힌트를 주고 기존 요소를 재사용하여 순서를 변경함에 있어
+        용이하게 하기 위해서 key라는 정보를 제공하면 성능상 이점을 가져갈 수 있다.
+        (사실상 반복에서 필수로 적게 된다.)
+    -->
+
+    <div id="step05">
+        <!-- item에 {id: ~ , name: ~} 형식으로 들어옴 + :key가 있어야 바로바로 찾을 수 있음으로 속도 향상(필수)-->
+        <div v-for="item in items" :key="item.id">      <!-- 실제 backend에서 넘어올 때는 key는 pk값이 넘어옴 -->
+            {{ item.id }} - {{ item.name }}
+        </div>
+    </div>
+
+    <script>
+        const {createApp, ref, reactive} = Vue;
+
+        createApp({
+            setup() {
+                const items = ref(['Apple', 'Pineapple','Melon','Watermelon']); /* const지만 개발자모드를 통해 값을 추가하면 감지해서 적용한다 */
+                return {
+                    items
+                }
+            }
+        }).mount('#step01');
+
+        createApp({
+            setup() {
+                
+                const profile = reactive({
+                    name: '홍길동',
+                    address: '서울시 강남구',
+                    introduction: 'vue 전문가이면서 의로움'
+                })
+                
+                return {
+                    profile
+                }
+            }
+        }).mount('#step02');
+
+        /* 해당 view에 맞는 viewInstance가 있어야 비어있더라도 값을 적용시킬수있다 */
+        createApp({
+            setup() {
+                return {
+                }
+            }
+        }).mount('#step03');
+
+        createApp({
+            setup() {
+                const items = ref([
+                    {name: 'apple', state: true},
+                    {name: 'pineApple', state: false},
+                    {name: 'melon', state: true},
+                    {name: 'watermelon', state: false},
+                ])
+                return {
+                    items
+                }
+            }
+        }).mount('#step04');
+        
+        createApp({
+            setup() {
+                const items = ref([
+                    {id: 0, name: 'apple'},
+                    {id: 1, name: 'pineApple'},
+                    {id: 2, name: 'melon'},
+                    {id: 3, name: 'watermelon'}
+                ])
+                return {
+                    items
+                }
+            }
+        }).mount('#step05');
+    </script>
+</body>
+</html>

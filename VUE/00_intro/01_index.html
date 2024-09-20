@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- 데이터 바인딩 문법을 사용하여, 데이터를 화면에 표시(템플릿 영역) -->
+    <div id="app">{{message}}</div>
+
+    <!-- 
+        vue.js에서 '{{}}'로 감싼 부분을 vue.js 바인딩 문법으로 이를 머스태취(Mustache) 문법 또는
+        보간법(Interpolation)이라고 한다.
+
+        반응성(Reactivity): Vue에서 데이터를 DOM에 바인딩하면 데이터 값이 변경될 때마다 DOM이 자동으로 업데이트 된다.
+                            이는 vue가 데이터와 DOM을 연결하고 관찰하여 데이터의 변경을 감지하고 자동으로 DOM을
+                            업데이트 하는 반응성 시스템을 갖추고 있기 때문이다. (ex. vi.message = 'abc'입력하면 mesaage 바로 바뀜)
+
+        데이터 바인딩(Data Binding): Vue에서 데이터와 DOM을 연결하는 매커니즘으로 이를 통해 Vue 인스턴스의 데이터를
+                                    html 템플릿에 동적으로 렌더링(해당 부분을 다시 변경) 할 수 있다.
+
+        반응성 변수(Reactive Variable): Vue.js에서 ref()(반응성 변수가 변하는지 지켜봄) 나 reactive()와 같은 함수를 사용하여 
+                                        반응성 변수를 생성할 수 있다. 이러한 반응성 변수는 vue의 반응성 시스템에 의해 관리되며,
+                                        변수 값이 변경될 때마다 연결된 html 요소에 자동으로 반영된다.
+    -->
+
+    <script>
+        console.log(Vue);
+        const {createApp, ref} = Vue;
+        
+        /* 1. composition api 방식 - 값과 기능을 모두 받아옴 => ViewModel이 해당 View에 붙는 개념 */
+        let vi = createApp({         // View Modl (View와 Model을 연결해줌)
+            setup(){
+                const message = ref('Hello Vue!');      // Model
+                return {
+                    message 
+                }
+            }
+        }).mount('#app');       // View
+        //log.console(vi); // vi는 proxy 타입
+
+        /* 2. options api 방식 - 거의 사용 X*/
+        //let vi = createApp({
+        //    data(){
+        //        const message = 'Hello Vue!!2';
+        //        return {
+        //            message
+        //       }
+        //    }
+        //}).mount('#app');
+
+
+        /*
+            composition API와 options API의 차이 
+            - composition API는 데이터를 관리하는 방식이 데이터를 사용하는 방식과 비슷해서 직관적이다. (권장 O)
+                즉, 데이터를 정의하고 사용하는 코드가 같은 함수 내에 있어 이해하기 쉽다.
+            - options API는 데이터를 관리하는 방식이 데이터를 사용하는 방식과 다르다. (권장 X)
+                즉, 데이터를 정의하는 코드와 사용하는 코드가 분리되어 있어 이해하기 어려울 수 있다.
+        */
+    </script>
+</body>
+</html>

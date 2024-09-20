@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- data.js 파일을 불러오는 스크립트 -->    
+    <script src="./data.js"></script>
+    <title>Vue</title>
+    <style>
+        header {
+            text-align: center;
+        }
+
+        section {
+            display: flex; /* Flex 컨테이너 */
+            flex-direction: row; /* 자식 요소들을 가로로 배치 */
+            flex-wrap: wrap; /* 자식 요소들을 여러 줄로 배치 */
+        }
+
+        article {
+            display: flex; /* Flex 컨테이너 */
+            flex-direction: column; /* 자식 요소들을 세로로 배치 */
+            align-items: center; /* 자식 요소들을 가로로 중앙 정렬 */
+            width: 300px;
+            height: 300px;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        img {
+            width: 100%;
+            height: 60%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        이번 챕터에서는 간단하게 Vue의 문법을 적용하여 화면을 호출하는 실습을 진행함
+    -->
+    <header>
+        <h1> vue template 익숙해지기</h1>
+    </header>
+    <main id="app">
+        <section>
+            <article v-for="data in jsonData" :key="data.id">
+                <label>이름 : {{data.name}}</label>
+                <p>소개 : {{data.introduction}}</p>
+                <figure>
+                    <img :src="data.img" :alt="data.name"/>
+                </figure>
+
+            </article>
+        </section>
+    </main>
+    <script>
+        
+        const { createApp } = Vue
+        createApp({
+            setup() {
+                const jsonData = scholar;    // data.js 파일을 불러오면 scholar 변수에 배열 객체가 저장되어 있어 이를 jsonData에 저장
+                return {
+                    jsonData
+                }
+            },
+        }).mount("#app")
+
+    </script>
+</body>
+
+</html>
