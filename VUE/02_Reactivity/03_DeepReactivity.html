@@ -9,6 +9,7 @@
 <body>
     <div id="step01">
         <h1>상품 담기</h1>
+        <!-- select의 v-model은 template 과 vue instance가 양방향바인딩이 일어나게 해줌 -->
         <select v-model="selectedFruit">
             <!-- :value에 객체를 집어 넣어야 v-model이 동작된다 -->
             <option v-for="fruit in fruits" :value="fruit">{{ fruit.name }}</option>

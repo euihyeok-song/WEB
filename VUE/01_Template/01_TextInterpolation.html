@@ -9,7 +9,7 @@
 <body>
     
     <!-- 텍스트 보간법: 텍스트 사이에 동적 값을 "추정"하여 삽입하는 구문 -->
-     <div id="step01">
+    <div id="step01">
         <span>message: {{ msg }}</span>
         <hr>
         <div v-text="msg"></div>        <!-- innerText와 동일 => "msg"값을 text로 vue에 뿌리겠다를 의미 <div><div>사이에 들어감-->
@@ -20,9 +20,9 @@
         <h5>Raw Html</h5>
         <p>Using text interpolation: {{ rawHtml }}</p>                  <!-- rawHtml이 그냥 text로 들어와서 tag까지 다 보임-->
         <p>Using v-html directive: <span v-html="rawHtml"></span></p>   <!-- v-html은 innerHtml과 동일한 개념 => 태그부분은 따로 적용해주고 text만 나옴-->
-     </div>
-     
-     <script>
+    </div>
+    
+    <script>
         document.getElementById("inJS").innerText = 'message: ' + 'abc';
 
         const {createApp} = Vue;
@@ -35,6 +35,6 @@
                 }
             }
         }).mount('#step01');                 // step01에 해당하는 곳에 msg와 rawHtml을 넘겨준다 라는 의미
-     </script>
+    </script>
 </body>
 </html>

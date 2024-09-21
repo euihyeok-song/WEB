@@ -15,7 +15,8 @@
     
     <div id="step01">
         <h5>디증 속성 바인딩</h5>
-        <div v-bind="multiAttr">{{ multiAttr }}</div>       <!-- v-bind에 객체를 주입함으로써 다중 속성 바인딩 가능. multiAttr에서 id는 어트리부트 명, "multiId"는 클래스 명이 됨-->
+        <!-- v-bind에 객체를 주입함으로써 다중 속성 바인딩 가능. multiAttr에서 id는 어트리부트 명, "multiId"는 어트리뷰트의 값 -->
+        <div v-bind="multiAttr">{{ multiAttr }}</div>       
         <button @click ="fun">ref에 담긴 객체 접근</button>
     </div>
 

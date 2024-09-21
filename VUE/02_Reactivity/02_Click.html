@@ -19,7 +19,8 @@
     <div id="step03">
 
         <!-- @keyup 이벤트로 추가할 수 있는 키들: enter, tab, delete, esc, space, up, down,... -->
-        <button @keyup.enter="warn('이벤트 유형', $event)">     <!-- warn()내부에 사용자가 실행한 이벤트가 이벤트 객체로 들어오게 함 -->
+        <!-- warn()내부에 사용자가 실행한 이벤트가 이벤트 객체로 들어오게 함 -->
+        <button @keyup.enter="warn('이벤트 유형', $event)">     
             $event1
         </button>
         <button @keyup.enter="warn('이벤트 유형', $event)">
@@ -34,8 +35,12 @@
         <div>
             <!-- <a href="https://www.naver.com" v-on:click="doSomething">네이버 안가고 싶은 a 태그</a> -->
             <!-- <a href="https://www.naver.com" @click="doSomething">네이버 안가고 싶은 a 태그</a> -->
-            <a href="https://www.naver.com" @click.prevent="doSomething">네이버 안가고 싶은 a 태그</a>. <!-- 기존의 것은 막고 prevent 설정해준것만 실행-->
+
+            <!-- 아래에서 .prevent를 추가하지 않으면, Vue instance에 설정한 이벤트 핸들러를 잠깐 console에 띄우고 바로 a태그 이벤트가 실행 --> 
+            <!-- .prevent를 선언하면 event(a 태그로 네이버로 날아가는 것)를 막고 Vue instance에 핸들러만 시행되서 console에 메시지만 찍힘 --> 
+            <a href="https://www.naver.com" @click.prevent="doSomething">네이버 안가고 싶은 a 태그</a> 
         </div>
+
 
         <!-- 2. stop은 이벤트 버블링을 막기 위해 자식 요소에 사용(버블링 방지)-->
         <div v-on:click="bubbling" style="background-color: aqua;">
@@ -43,6 +48,7 @@
             <button v-on:click.stop= 'bubblingEvent'>버블링</button>
         </div>
             
+        
         <!-- 3. self는 자기 자신의 요소가 아닌 다른 하위 요소에 대해서는 이벤트를 억제(캡쳐링 방지)-->
         <div>
             <!--  button 안에 영역이 self를 눌러도 other을 눌러도 실행된다.(click.self를 달아주면 self를 눌렀을 때만 동작) -->

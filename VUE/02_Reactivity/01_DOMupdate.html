@@ -20,14 +20,16 @@
 
                 async function updateMessage() {
                     
-                    /* 반응형 변수인 message를 수정(즉시 message는 수정되지만 DOM은 update되지 않음(함수가 끝날 때까지) */
+                    /* 반응형 변수인 message를 수정(즉시 message는 수정되지만 DOM은 update되지 않음(함수가 끝날 때까지)) */
                     console.log('message 변화 전: ', document.querySelector('h1').innerText);
 
                     message.value = '안녕, 뷰!';
 
                     /* DOM이 update 되기 전인 tick을 지나가게 함 - 선언해주지 않으면 message,value='안녕, 뷰!'가 DOM에 적용되지 X */
                     await nextTick(); // 비동기 함수 - await를 걸어줘야 이것이 끝날때까지 아래부분이 실행되지 X
-
+                    
+                    // await nextTick()으로 Tick을 지나가게 하지 않으면, updateMessage함수가 종료되기 전에 DOM에 반영되지 않음으로.
+                    // '안녕, 뷰!'가 console에 찍히지 않는다.
                     console.log('message 변화 후: ', document.querySelector('h1').innerText);
                 }
 
