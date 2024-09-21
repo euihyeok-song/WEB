@@ -21,7 +21,7 @@ public class RequestWrapper extends HttpServletRequestWrapper {
             /* 설명. 암호화하는 객체를 하나 생성 -> encoder()라는 메소드에 평문((explain text) - password를 넣어서 암호화 진행 */
             System.out.println("패스워드 꺼낼 시!");
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            value = passwordEncoder.encode(super.getParameter("password"));
+            value = passwordEncoder.encode(super.getParameter("password")); // override한 getParameter 사용
         }
         /* 설명. password가 아닌경우는 기존과 동일한 getParameter() 실행 */
         else {

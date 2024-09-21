@@ -1,4 +1,4 @@
-package com.ohgiraffers.section02.sessionlistener;
+pa ckage com.ohgiraffers.section02.sessionlistener;
 
 import jakarta.servlet.http.HttpSessionBindingEvent;
 import jakarta.servlet.http.HttpSessionBindingListener;

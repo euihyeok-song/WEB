@@ -30,7 +30,7 @@ public class SessionListenerServlet extends HttpServlet {
         /* 설명. 삭제(delete) */
         session.removeAttribute("user");
 
-        /* 설명. session 자체를 삭제 */
+        /* 설명. session 자체를 삭제 -> session 내부의 값들은 나중에 제거한다. */
         session.invalidate();
     }
 }

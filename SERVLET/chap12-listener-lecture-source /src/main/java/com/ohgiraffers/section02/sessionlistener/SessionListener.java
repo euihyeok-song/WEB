@@ -17,11 +17,12 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     @Override
     public void sessionCreated(HttpSessionEvent se) {
         System.out.println("session created!");
-        System.out.println("생성 session id: " + se.getSession().getId());
+        System.out.println("생성 session id: " + se.getSession().getId()); // 어떤 사용자에 의해 생성된 session인지
         /* 설명. 어떤 session의 타입인지 이름을 출력 */
         System.out.println("session 객체 타입: " + se.getSession().getClass().getName());
     }
 
+    /* attribute의 setattribute가 발생하였는지 지켭는 listener 기능 */
     @Override
     public void attributeAdded(HttpSessionBindingEvent event) {
         System.out.println("session attribute added!");

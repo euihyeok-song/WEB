@@ -21,6 +21,7 @@ public class RegistMemberServlet extends HttpServlet {
         System.out.println("password = " + password);
         System.out.println("name = " + name);
 
+        /* 암호화된 값을 사용자가 입력한 평뮨의 값과 동일한지 확인하는 구문 */
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         System.out.println("비밀번호가 pass01인지 확인 " + passwordEncoder.matches("pass01",password));
         System.out.println("비밀번호가 pass02인지 확인 " + passwordEncoder.matches("pass02",password));

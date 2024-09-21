@@ -13,7 +13,7 @@ public class FirstFilter implements Filter {
     /* 설명.
      *   filter의 기능
      *    1. log를 찍어서 어느 servlet으로 가는지 어디서 온지를 출력해볼 수 있다.
-     *    2. encoding을 할 수 있다.(Tomcat 8버전 아래에서는 직접 인코딩 해줬어야함)
+     *    2. encoding을 할 수 있다.(Tomcat 8버전 아래에서는 직접 인코딩 해줬어야함) - 전처리
      *    3. 비밀번호 암호화를 처리 가능하다. (인지 & 인가 기능)
      *    4. TimeZone을 다루어서 시간을 조절할 수 있다.
      * */
@@ -22,6 +22,7 @@ public class FirstFilter implements Filter {
         System.out.println("FirstFilter 인스턴스 생성!");
     }
 
+    /* filter는 Tomcat이 켜지고 Servlet container가 생성되기 전에 Filter가 먼저 생성된다 */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         System.out.println("FirstFilter init 호출!!");
