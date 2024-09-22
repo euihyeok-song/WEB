@@ -6,7 +6,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class Application {
     public static void main(String[] args) {
-        /* 설명. Annotation방식으로 Bean을 넣는 container 선언*/
+        /* 설명. Annotation방식으로 Bean을 넣는 IOC container 선언*/
         ApplicationContext context =
                 new AnnotationConfigApplicationContext(ContextConfiguration.class);
 
@@ -25,7 +25,7 @@ public class Application {
                 -  동일한 타입의 여러 객체 존재시 ArrayList와 같은 collection으로 받아야 함*/
 //        MemberDTO member = context.getBean(MemberDTO.class);
 
-        /* 설명. 3. Bean의 id와 클래스 메타 정보를 전달하여 가져오는 방법 */
+        /* 설명. 3. Bean의 id와 클래스 메타 정보를 전달하여 가져오는 방법 - 명확한 1개의 DTO를 뽑아올 수 있음  */
         MemberDTO member = context.getBean("member",MemberDTO.class);
 //        @Autowired
 //                MemberDTO member;                         // 이와 같은 개념 - 이는 뒤에 다룸
