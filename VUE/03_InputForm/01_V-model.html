@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        div {
+            borader: 1px solid black;
+            padding: 5ps;
+        }
+
+        .custom-input input {
+            width: 200px;
+            padding: 5px;
+            border: 1px solid black;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- Vue instance가 작성되어서 붙는 곳을 Root라고 한다. -->
+    <div id="step01">
+        <div>
+            <h4>name: {{ name }}</h4>
+            <h4>address: {{ address }}</h4>
+            <h4>age: {{ age }}</h4> 
+            <h4>introduce: {{ introduce }}</h4>
+        </div>
+        <!-- v-model은 이벤트 처리 + 모델 변환 기능을 제공 => 어떤 이벤트가 일어나면 어떤 모델을 사용할 지 지정 -->
+        <label>이름: </label>
+        <input type="text" v-model="name">  <!-- keydown 적용: input태그에 글을 쓸때마다(key를 누름) 이벤트 발생 -->
+        <br>
+        <label>주소: </label>
+        <input type="text" v-model="address">
+        <br> 
+
+        <!--
+            type=number와 같은 기능을 수행한다.
+            숫자로 변환할 수 없으면 v-model에 담기지 않는다.(validation check에 이용 가능)
+            (단, 숫자로 시작했을 시)
+        -->
+        <label>나이: </label>
+        <input type="text" v-model.number="age">
+        <br>
+        <!-- 
+            trim은 입력 시 압 뒤 공백을 제거하는 v-model 옵션이다.
+        -->
+        <label>자기소개: </label>
+        <input type="text" v-model.trim="introduce">
+    </div>
+
+    
+    <!-- textarea -->
+    <div id="step02">
+        <p>Vue에 대한 생각을 작성해 주세요: {{ message }}</p>
+        <textarea v-model="message"></textarea>
+
+        <!-- 이 부분에 글을 다 쓰고 다른곳을 클릭하면 적용(focus -> blur 되면 적용됨) -->
+        <p>느리게 반영되는 msg: {{ msg }}</p>
+        <textarea v-model.lazy="msg"></textarea> 
+    </div>
+
+
+    <!-- selecct -->
+    <div id="step03">
+        <!-- selected가 잇는 option 태그의 value 변화를 반응형 변수에 반영 -->
+        <p>단일 선택 : {{selected}}</p>
+
+        <!-- select태그: value 뒤에 selected가 붙는 값들을 selected에 넣어준다 -->
+        <!-- @change="check": change가 발생하면 check라는 event함수를 실행 -->
+        <select v-model="selected" @change="check">
+            <option value="apple"> apple</option>
+            <!-- <option value="apple" selected>  apple</option>   // 사용자가 화면에서 선택하면 selected가 자동으로 붙음 -->
+            <option value="pineapple">pineapple</option>
+            <option value="grape">grape</option>
+        </select>
+        <br>
+        <!-- multiple 속성일 때는 v-model을 통한 fruits 선택 결과들이 배열인 반응형 변수에 반영 -->
+        <p>다중 선택 : {{fruits}}</p>
+
+        <!-- multiple 속성에 의해서 사용자가 선택한 여러 속성이 배열 형태로 fruits에 담김-->
+        <!-- 내부적으로 선택했던 요소를 한번 더 선택하면 삭제될 수 있게 splice를 통해 구현되어 있음 -->
+        <select v-model="fruits" multiple>
+            <option value="apple"> apple</option>
+            <option value="pineapple">pineapple</option>
+            <option value="grape">grape</option>
+        </select>
+    </div>
+
+
+    <div id="step04">
+        <p>과일 목록 : {{ fruits }}</p>
+
+        <!--
+            v-model을 사용하지 않고, change 이벤트와 핸들러 메소들르 사용한다면 이런 로직으로 처리해야 될 구문이다.
+
+            const index = fruits.index(event.target.value);
+            if(fruits != -1){
+                fruits.splice(index,1);    
+            } else {
+                fruits.push(event.target.value);
+            } 
+        -->
+
+        <!-- checkbox는 동일한 이름에 다중 선택이 되어 배열로 값이 넘어감 -->
+        <input type="checkbox" id="apple" name="check" value="apple" v-model="fruits"/>
+        <label for="apple">apple</label>
+        <input type="checkbox" id="pineapple" name="check" value="pineapple" v-model="fruits" />
+        <label for="pineapple">pineapple</label>
+        <input type="checkbox" id="grape" name="check" value="grape" v-model="fruits" />
+        <label for="grape">grape</label>
+
+        <br>
+
+        <p>toggle : {{toggle}}</p>
+        <!-- toggle을 통한 전체 선택 & 해제 -->
+        <!-- 체크가 되면 true-value를 체크되지 않으면 false-value를 출력 -->
+        <input type="checkbox" v-model="toggle" :true-value="dynamicTrueValue" :false-value="dynamicFalseValue" /> 
+    </div>
+    
+    <script>
+        const {createApp, ref} = Vue;
+
+        /* 이부분이 Vue Instance */
+        createApp({
+            /* 이부분이 View Model(VM) */
+            setup(){
+                /* 이부분이 Model */
+                const name = ref('');
+                const address = ref('');
+                const age = ref(0);
+                const introduce = ref('');
+
+                return {
+                    name,
+                    address,
+                    age,
+                    introduce
+                }
+            }        
+        }).mount("#step01");
+
+        createApp({
+            setup(){
+                
+                const message = ref('');
+                const msg= ref('');
+
+                return {
+                    message,
+                    msg
+                }
+            }
+        }).mount("#step02")
+
+        createApp({
+            setup() {
+
+                const selected = ref('apple');
+                const fruits = ref([]);
+                function check() {
+                    console.log(selected.value);
+                }
+
+                return {
+                    selected,
+                    fruits,
+                    check
+                }
+            }
+        }).mount("#step03")
+
+        createApp({
+            setup(){
+                const fruits = ref([]);
+                const toggle = ref();
+                const dynamicTrueValue = ref('선택됨');
+                const dynamicFalseValue = ref('선택 안됨');
+
+                return {
+                    fruits,
+                    toggle,
+                    dynamicTrueValue,
+                    dynamicFalseValue
+                }
+            }
+        }).mount("#step04")
+    </script>
+</body>
+</html>
