@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .rootContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .appContainer {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            border: 1px dotted black;
+            width: 80%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wine-card {
+            display: flex;
+            flex-direction: column;
+            width: 30%;
+            height: 300px;
+            border: 1px solid black;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .image {
+            width: 70px;
+            height: 100px;
+        }
+
+        .btn-group {
+            display: flex;
+            width: 60%;
+            justify-content: space-around;
+        }
+
+        .btn {
+            width: 50px;
+            height: 50px;
+        }
+
+        .neon {
+            color: #fff;
+            text-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #00f, 0 0 40px #00f, 0 0 70px #00f, 0 0 80px #00f, 0 0 100px #00f, 0 0 150px #00f;
+            animation: neonAnimation 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes neonAnimation {
+            from {
+                text-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #00f, 0 0 40px #00f, 0 0 70px #00f, 0 0 80px #00f, 0 0 100px #00f, 0 0 150px #00f;
+            }
+
+            to {
+                text-shadow: 0 0 5px #00f, 0 0 10px #00f, 0 0 15px #00f, 0 0 20px #00f, 0 0 35px #00f, 0 0 40px #00f, 0 0 50px #00f, 0 0 75px #00f;
+            }
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="step01">
+        <div v-if="!loadingState">
+            로딩을 준비합니다.
+        </div>
+        <template v-else>
+            <h1 :class={"neon":isMounted}>인생 와인</h1>
+
+            <div class="btn-group">
+                <button class="btn">back</button>
+                <button class="btn">next</button>
+            </div>
+        </template>
+    </div>
+
+    <script>
+
+        /* 앞에 on이 붙은것들은 전부 composition 방식 */
+        const {createApp, ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated} = Vue;
+
+        createApp({
+            /* compostion 방식은 setup() 내부에서 값과 기능을 전부 넣어서 사용 */
+            /* setup 안에 라이프사이클 혹은 메소드를 만들고 넘겨지는 콜백 함수(화살표 함수) 안에서 해당 시점에 할 일 작성 */
+            setup(){
+                const loadingState = ref(false);
+                const isMounted = ref(false);
+
+                onBeforeMount(() => {
+                    console.log("DOM이 Mount 되기 전");
+                });
+
+                onMounted(() => {
+                    console.log("마운트 완료");
+                });
+
+                onBeforeUpdate(() => {
+                    console.log("컴포넌트 업데이트 전");
+                });
+
+                onUpdated(() => {
+                    console.log("컴포넌트 리렌더링 이후");
+                })
+                return {
+                    loadingState,
+                    isMounted
+                }
+            }
+        }).mount("#step01");
+    </script>
+</body>
+</html>
