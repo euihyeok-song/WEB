@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="step01">
+
+        <!-- 
+            watch:
+            데이터의 변경을 감지하고 그에 따라 추가 동작을 수행할 수 있다.
+            watch 함수는 vue인스턴스가 생성되고 setup 함수 내부에서 사용된다.
+
+            [표현식]
+            watch(propertyName, callback(newValue, oldValue) => {})
+                1. propertyName: 병경을 감지할 속성
+                2. callback: 병경 감지 시 수행할 동작
+                3. newValue: 현재 입력된 새로운 값
+                4. oldValue: 입력 이전의 값
+
+            결론은, 감시자(watch)는 반응형 변수에 추가 기능을 달아주거나 반응형 변수의 변화 이전 값 활용 시 사용된다.
+        -->
+
+        <p>
+            현재 값: {{ currentValue }}
+        </p>
+        <p>
+            이전 값: {{ previousValue }}
+        </p>
+        <p>
+            입력 받는 값: <input type="text" v-model="currentValue">
+        </p>
+    </div>
+
+    <div id="step02">
+        <p>
+            {{ sum }}
+        </p>
+        <button @click="x++;">x++</button>
+        <button @click="y++;">y++</button>
+        <button @click="z++;">z++</button>
+    </div>
+
+    <script> 
+        const {createApp, ref, watch} = Vue;
+
+        createApp({
+            setup() {
+                const currentValue = ref('');       // 감시할 대상
+                const previousValue = ref('');      // 감시할 대상의 이전 값
+                
+                
+                watch(currentValue, (newVal, oldVal) => {
+                    /* id중복확인 구현시 많이 이용 */
+                    if(newVal !== previousValue.value){
+                        console.log('watch를 통해 데이터 변경 후 로직 실행');
+                        console.log(newVal);
+                        console.log(oldVal);
+
+                        previousValue.value = oldVal;
+                    }
+                })
+
+                return {
+                    currentValue,
+                    previousValue
+                }
+            }
+        }).mount('#step01');
+
+        createApp({
+            setup(){
+                
+                const x = ref(0);
+                const y = ref(0);
+                const z = ref(0);
+                const sum = ref(0);
+
+                /* x, y, z를 감시하고 sum에는 x와 y만 활용 */
+                //watch([x, y, z], (newVal, oldVal) => {
+                //    console.log(newVal);
+                //    console.log(oldVal);
+                //    sum.value = x.value + y.value;
+                //})
+
+                /* 
+                    두 개의 화살표 함수를 넘겨주고 첫 번째 함수 내부에서 다루는 대상만 감시하며
+                    그 결과(반환값)를 두 번째 함수에 전달한다.
+                */
+                // 감시대상을 지정하지 않으면, 함수 내에서 사용하는 변수만 감시함
+                watch(()  => {
+                    return x.value + y.value;
+                },
+                (result) => {
+                    sum.value = result;
+                }) 
+
+
+                return {
+                    x, y, z, sum
+                }
+            }
+        }).mount('#step02');
+    </script>
+</body>
+</html>
