@@ -14,7 +14,7 @@ const router = createRouter({
             component: HomeView
         },
         {
-            /* pathvariable 방식으로 라우팅을 할 때는 받아줄 변수명을 작성한다. */
+            /* pathvariable 방식으로 라우팅을 할 때는 값을 받아줄 변수명을 작성한다. */
             path: '/pathvariable/:id',
             component: PathVariable
         },

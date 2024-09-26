@@ -3,17 +3,19 @@
     <h1>Router 사용하기</h1>
     <hr>
     <div class="wrapper">
-      <!-- replace 속성은 브라우저의 히스토리 스택을 대체하여 뒤로가기를 방지한다. -->
+      
       <!--
       <h2>basic router</h2>
       <nav>
 
-        // client side에서 URL 경로로 Routing
+        // client side에서 URL 경로로 Routing => src/router/01_router.js로 전달
         <RouterLink to="/" active-class="active" replace>Home</RouterLink>  // '/' 요청시에 매칭될 Componentfmf RouterView에 그려라
         <RouterLink to="/pathvariable/1" active-class="active" replace>PathVariable</RouterLink>  
         <RouterLink to="/querystring?name=홍길동&age=20" active-class="active" replace>QueryString</RouterLink>  
       </nav>
       -->
+
+      <!-- router가 있는 페이지 내부에 또 router가 있어서 중첩 되는 router -->
       <h2>nested router</h2>
       <nav>
 

@@ -1,6 +1,6 @@
 <template>
     <h1>RootRouter</h1>
-    <RouterView/>
+    <RouterView/>           <!-- NestedHome이나 NestedView가 Component로 붙음 -->
 </template>
 
 <script setup>
