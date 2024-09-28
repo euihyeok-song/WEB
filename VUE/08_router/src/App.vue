@@ -23,6 +23,7 @@
         <!-- replace 속성은 브라우저의 히스토리 스택을 대체하여 뒤로가기를 방지한다. -->
         <RouterLink to="/" active-class="active" replace>Home</RouterLink>  
         <RouterLink to="/nested/home" active-class="active" replace>중첩 home</RouterLink>  
+        <!-- & => <RouterLink to="/nested" active-class="active" replace>중첩 home</RouterLink>   -->
         <RouterLink to="/nested/view" active-class="active" replace>중첩 view</RouterLink>  
       </nav>
     </div>

@@ -18,6 +18,9 @@ const router = createRouter({
             children: [             // 중첩 router는 children을 사용 (자식)
                 {
                     path: "home",   // /nested/home 
+                    // path: ""     // home을 적지않아도 자동으로 home으로 인지해줌 => default component 설정 가능 (App.vue에서 추가 설정 필요 - & 표시)
+                                    // 가능은 하지만 색칠이 2개가 처리 되는 문제점 있어서 사용 권장 X 
+
                     // component: NestedHome
 
                     /*
