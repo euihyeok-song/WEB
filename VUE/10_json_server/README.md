@@ -7,7 +7,7 @@
 ```
 $ npm i -g json-server
 
-// 윈도우 파워쉘 > 관리자 권한으로 실행 > 아래 설정을 변경
+// 윈도우 파워쉘 > 관리자 권한으로 실행 > 아래 설정을 변경      => mac에서는 이과정 필요 없음
 $ executionpolicy
 $ set-executionpolicy unrestricted
 
