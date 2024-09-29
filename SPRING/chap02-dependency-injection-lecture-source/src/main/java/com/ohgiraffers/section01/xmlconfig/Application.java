@@ -6,7 +6,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class Application {
     public static void main(String[] args) {
-        /* 설명. 설정파일을 넘겨줬으니 알아서 Bean을 만들어서 관리해!라는 의미 */
+        /* 설명. 설정파일을 넘겨줬으니 알아서 Bean을 만들어서 관리해!라는 의미 - xml파일로 bean 등록 */
         ApplicationContext context =
                 new GenericXmlApplicationContext(
                         "section01/xmlconfig/spring-context.xml");

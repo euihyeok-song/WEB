@@ -7,7 +7,7 @@
     <!-- MemberDTO bean 등록 -->
     <bean id="member2" class="com.ohgiraffers.common.MemberDTO">
         <!--  여러 방식으로 선언이 가능하다(모두 동일) -->
-        <constructor-arg index="0" value="2"/>
+        <constructor-arg index="0" value="2"/>  <!-- MemberDTO의 생성자중 0번 인덱스에 2라는 값을 넣으시오를 의미 -->
         <constructor-arg name="id" value="user02"/>
         <constructor-arg index="2"> <value>passo1</value></constructor-arg>
         <constructor-arg name="name"> <value>홍길동</value></constructor-arg>

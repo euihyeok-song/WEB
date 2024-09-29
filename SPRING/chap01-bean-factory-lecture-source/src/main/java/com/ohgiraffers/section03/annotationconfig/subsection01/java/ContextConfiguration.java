@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 *         - ComponentScan은 Component를 찾으려고 함으로, common폴더 내의 DAO와 DTO중에서 @Respository(@Component를 포함)가
 *           존재하는 DAO로 간다.
 * */
-@Configuration("configurationSection03")
-@ComponentScan(basePackages = "com.ohgiraffers.common")
+@Configuration("configurationSection03")  // ContextConfiguration이 javaconfig 파일에도 있음으로 파일을 인지시킬 이름달아줌
+@ComponentScan(basePackages = "com.ohgiraffers.common")   // Bean으로 읽어z 올 범주를 지정
 public class ContextConfiguration {
 }

@@ -14,7 +14,7 @@ public class MemberDTO {
     private String name;
     private String phone;
     private String email;
-    private Account personalAccount;
+    private Account personalAccount;        // 보통 VO로 많이 쓰임
 }
 
 /* 설명. MemberDTO -> has a(의존 관계 = 연관 관계)  -> Account 관계 객체

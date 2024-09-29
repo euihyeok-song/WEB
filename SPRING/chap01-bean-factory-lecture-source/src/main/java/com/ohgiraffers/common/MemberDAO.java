@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.Map;
 
-/* 설명. DAO는 Repository 계층에 속하며, 위와 같이 선언하면 MemberDTO라는 Bean이 생성된다.
+/* 설명. DAO는 Repository 계층에 속하며, 위와 같이 선언하면 MemberDAO라는 Bean이 생성된다.
 *       DAO 클래스는 Data Access Object를 줄인 말로 Repository 계층과 마찬가지로 java application과
 *       Database를 연동시켜 주기 위한 계층을 구분하는 클래스로 활용한다.(controller - service - dao)
 * */

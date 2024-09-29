@@ -5,7 +5,7 @@
 아래 스크립트를 활용하여 서버를 생성하고 주소창에 http://localhost:8080/post를 입력하면 json 서버를 사용할 수 있다.
 
 ```
-$ npm i -g json-server
+$ sudo npm i -g json-server
 
 // 윈도우 파워쉘 > 관리자 권한으로 실행 > 아래 설정을 변경      => mac에서는 이과정 필요 없음
 $ executionpolicy

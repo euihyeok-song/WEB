@@ -19,7 +19,7 @@ public class ContextConfiguration {
     @Bean
     public MemberDTO memberGenerator(PersonalAccount account){
 
-        /* 설명. 1. 생성자 주입*/
+        /* 설명. 1. 생성자 주입 - PersonalAccount로 만들어진 객체를 생성자의 5번째 인자로 넣어라*/
 //        return new MemberDTO(1,"홍길동", "010-1234-5678",
 //                "hong@gmail.com", accountGenerator());
 
