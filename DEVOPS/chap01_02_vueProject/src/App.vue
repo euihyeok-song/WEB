@@ -20,11 +20,13 @@
   const sendPlus = async() => {
 
     // cors 해결(backend)
-    const response = await fetch(`http://localhost:7777/plus?num1=${num1.value}&num2=${num2.value}`);     // response에는 num1, num2, sum이 넘어옴
+    // const response = await fetch(`http://localhost:7777/plus?num1=${num1.value}&num2=${num2.value}`);     // response에는 num1, num2, sum이 넘어옴
 
     // cors 해결(frontend)  - http://localhost:5173/api가 vite.config.js에 의해서 http://localhost:7777로 변환됨 (+ /api는 rewrite()를 통해서 삭제 필요)
     // const response =  await fetch(`http://localhost:5173/api/plus?num1=${num1.value}&num2=${num2.value}`);
 
+    // docker의 서버로 띄우기
+    const response = await fetch(`http://localhost:8056/plus?num1=${num1.value}&num2=${num2.value}`);
     const data = await response.json();
     result.value = data.sum;
   }
