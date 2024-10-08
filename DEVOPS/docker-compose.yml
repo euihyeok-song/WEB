@@ -1,0 +1,34 @@
+# Docker Compose 사용 (1_Docker 개요.md 참고)
+
+services:
+  # 가질 이름
+  springboot-app:
+    build: 
+      context: ./chap01_01_bootProject
+      dockerfile: Dockerfile
+    image: kappie074/boot_9_project:v1
+    container_name: boot-container
+    ports:
+      - "8055:7777"
+    networks:
+      - camp-net
+
+  # 가질 이름
+  vue-app:
+    build:
+      context: ./chap01_02_vueProject
+      dockerfile: Dockerfile
+    image: kappie074/vue_9_project:v1
+    container_name: vue-container
+    ports:
+      - "8011:5173"
+    networks:
+      - camp-net
+
+networks:
+  #container끼리 통신을 함을 의미
+  camp-net:
+    # 외부에서의 접근을 막음
+    # host/bridge/none 중에 bridge를 일반적으로 사용 (host,none은 보안상의 이유로 잘 쓰지 X)
+    driver: bridge
+

@@ -13,7 +13,7 @@ COPY . .
 RUN gradle clean build --no-daemon
 
 
-## 2. 실행 스테이지 시작
+## 2. 실행 스테이지 시작 - 맨마지막 파일만 이미지가 만들어짐 ( 위에는 전부 build를 위한 세팅 => multi stage build )
 ## openjdk 17 버전의 이미지를 가져와 JVM 환경 구축
 FROM openjdk:17-alpine
 
