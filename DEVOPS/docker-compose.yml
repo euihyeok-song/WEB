@@ -25,6 +25,11 @@ services:
     networks:
       - camp-net
 
+
+# 네트워크 드라이버 옵션
+# 1. driver: bridge -> 기본 값, 대부분의 경우에 적합
+# 2. driver: host -> 호스트 네트워크를 직접 사용, 성능은 좋지만 보안에 취약
+# 3. driver: none -> 네트워크 기능 없음, 완전히 격리된 환경
 networks:
   #container끼리 통신을 함을 의미
   camp-net:
