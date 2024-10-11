@@ -32,7 +32,10 @@
     // const response =  await fetch(`http://localhost:5173/api/plus?num1=${num1.value}&num2=${num2.value}`);
 
     // 프론트에서 CORS 처리를 하고자 하는 경우(프론트 프로젝트가 컨테이너인 상태)
-    const response =  await fetch(`http://localhost:8011/api/plus?num1=${num1.value}&num2=${num2.value}`);  
+    // const response =  await fetch(`http://localhost:8011/api/plus?num1=${num1.value}&num2=${num2.value}`); 
+    
+    // k8s를 워커노드들로 띄워지고 난 이후(백엔드: 30001, 프론트엔드:30000)
+    const response =  await fetch(`http://localhost:30001/plus?num1=${num1.value}&num2=${num2.value}`);  
 
     const data = await response.json();
     result.value = data.sum;

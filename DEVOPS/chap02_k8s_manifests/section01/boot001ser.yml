@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: boot001ser
+spec:
+  type: NodePort      # 누구나 접근 가능한 worknode
+  ports:
+  - port: 8001
+    targetPort: 7777  # target 포트(target인 container 7777)
+    protocol: TCP
+    nodePort: 30001   # 접근해야할 포트
+  selector:
+    app: boot001kube
