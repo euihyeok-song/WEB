@@ -2,6 +2,8 @@
 ## gradle 이미지 가져옴(빌드 스테이지를 build라는 이름으로 설정)
 FROM gradle:7.6.1-jdk17-alpine AS build
 
+FROM --platform=linux/amd64 python:3.7-alpine
+
 ## 컨테이너 애부(alpine 리눅스 환경)의 app폴더로 설정
 WORKDIR /app
 

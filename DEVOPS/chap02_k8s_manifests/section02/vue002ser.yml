@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vue002ser
+spec:
+  type: ClusterIP       # 로드 밸런서, 로드 포트, 클러스터 IP(외부에서 직접 접근X : ingresss를 통해서 접근 O) 3개중에 하나 가능
+  ports:
+  - port: 8000
+    targetPort: 80      # 5173이 아니라 80으로 바꿔야 한다.
+  selector:
+    app: vue002kube
