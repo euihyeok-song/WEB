@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: boot-container
-        image: ys0915/nine_b_proj:latest
+        image: kappie074/nine-pipe:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 7777
