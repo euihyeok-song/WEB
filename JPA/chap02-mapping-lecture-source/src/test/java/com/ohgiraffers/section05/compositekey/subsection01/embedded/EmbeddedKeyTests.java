@@ -8,12 +8,13 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 public class EmbeddedKeyTests {
     private static EntityManagerFactory emf;
     private static EntityManager em;
 
     @BeforeAll
-    public static void intiFactory() {
+    public static void initFactory() {
         emf = Persistence.createEntityManagerFactory("jpatest");
     }
 
@@ -22,7 +23,6 @@ public class EmbeddedKeyTests {
         em = emf.createEntityManager();
     }
 
-    // 복합키 사용법1
     @Test
     public void 임베디드_아이디를_사용한_복합키_테이블_매핑_테스트() {
         Member member = new Member();
@@ -34,14 +34,14 @@ public class EmbeddedKeyTests {
         tx.begin();
         em.persist(member);
         tx.commit();
-
+        
         Member foundMember = em.find(Member.class, member.getMemberPK());
         assertEquals(new MemberPK(1, "user01"), foundMember.getMemberPK());      // 복합키 객체 동등 비교
         System.out.println(em.find(Member.class, new MemberPK(1, "user01")));
     }
 
     @AfterEach
-    public void closeManager(){
+    public void closeManager() {
         em.close();
     }
 

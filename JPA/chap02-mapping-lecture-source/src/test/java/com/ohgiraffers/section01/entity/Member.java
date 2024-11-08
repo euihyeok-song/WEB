@@ -11,9 +11,9 @@ import java.util.Date;
 @Table(name="tbl_member_section01") // 데이터베이스에 매핑 될 테이블 이름 설정
 public class Member {
 
-    @Id                             // PK에 해당하는 속성에 지정(복합키일 경우 두 가지 방식 존재(이후에 다룰 예정)), 복합키 X인 경우
-    @Column(name="member_no")       // 데이터베이스에 대응되는 컬럼명 지정(타입 및 여러 제약조건 설정 가능), (ex. varchar(20), check 제약조건)
-    private int memberNo;           // 이후에 auto-increase 같은거 다룰 예정
+    @Id                             // PK에 해당하는 속성에 지정(복합키일 경우 두 가지 방식 존재(이후에 다룰 예정))
+    @Column(name="member_no")       // 데이터베이스에 대응되는 컬럼명 지정(타입 및 여러 제약조건 설정 가능)
+    private int memberNo;
 
     @Column(name="member_id")
     private String memberId;

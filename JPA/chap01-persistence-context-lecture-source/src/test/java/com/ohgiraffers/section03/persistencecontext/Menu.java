@@ -2,19 +2,13 @@ package com.ohgiraffers.section03.persistencecontext;
 
 import jakarta.persistence.*;
 
-/* 설명. Entity: DB의 Table과 매칭이 되는 부분 */
-/* 설명. Bean과 같이 @Entity를 등록하면 Menu도 menu라는 Entity가 등록되어 관리된다.
- *        Entity의 이름은 달리해줘야 함 ( section02_menu로 선언하면 오류 발생 )
- * */
-@Entity(name = "section03_menu")
-/* 설명. 연관있는 Table의 이름을 적어줌*/
+@Entity(name="section03_menu")
 @Table(name="tbl_menu")
 public class Menu {
 
-    /* 설명. persist에 값을 넣을 경우 PK는 건들면 안되므로, @Id는 뗴고 넣어야한다.*/
     @Id
     @Column(name="menu_code")
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int menuCode;
 
     @Column(name="menu_name")
@@ -60,10 +54,6 @@ public class Menu {
         return orderableStatus;
     }
 
-    public void setMenuCode(int menuCode) {
-        this.menuCode = menuCode;
-    }
-
     public void setMenuName(String menuName) {
         this.menuName = menuName;
     }
@@ -89,5 +79,9 @@ public class Menu {
                 ", categoryCode=" + categoryCode +
                 ", orderableStatus='" + orderableStatus + '\'' +
                 '}';
+    }
+
+    public void setMenuCode(int menuCode) {
+        this.menuCode = menuCode;
     }
 }

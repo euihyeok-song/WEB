@@ -13,7 +13,7 @@ public class EnumTypeMappingTests {
     private static EntityManager em;
 
     @BeforeAll
-    public static void intiFactory() {
+    public static void initFactory() {
         emf = Persistence.createEntityManagerFactory("jpatest");
     }
 
@@ -24,7 +24,6 @@ public class EnumTypeMappingTests {
 
     @Test
     public void enum타입_매핑_테스트() {
-        // 매핑된 대로 테이블을 만들고 insert, update한다.
 
         // given
         Member member = new Member();
@@ -53,7 +52,7 @@ public class EnumTypeMappingTests {
     }
 
     @AfterEach
-    public void closeManager(){
+    public void closeManager() {
         em.close();
     }
 

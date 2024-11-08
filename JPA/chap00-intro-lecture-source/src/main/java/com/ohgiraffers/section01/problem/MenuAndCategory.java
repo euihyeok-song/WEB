@@ -1,21 +1,20 @@
 package com.ohgiraffers.section01.problem;
 
-
 public class MenuAndCategory {
     private int menuCode;
     private String menuName;
     private int menuPrice;
-    private Category categoryCode;
+    private Category category;
     private String orderableStatus;
 
     public MenuAndCategory() {
     }
 
-    public MenuAndCategory(int menuCode, String menuName, int menuPrice, Category categoryCode, String orderableStatus) {
+    public MenuAndCategory(int menuCode, String menuName, int menuPrice, Category category, String orderableStatus) {
         this.menuCode = menuCode;
         this.menuName = menuName;
         this.menuPrice = menuPrice;
-        this.categoryCode = categoryCode;
+        this.category = category;
         this.orderableStatus = orderableStatus;
     }
 
@@ -43,12 +42,12 @@ public class MenuAndCategory {
         this.menuPrice = menuPrice;
     }
 
-    public Category getCategoryCode() {
-        return categoryCode;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryCode(Category categoryCode) {
-        this.categoryCode = categoryCode;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getOrderableStatus() {
@@ -65,7 +64,7 @@ public class MenuAndCategory {
                 "menuCode=" + menuCode +
                 ", menuName='" + menuName + '\'' +
                 ", menuPrice=" + menuPrice +
-                ", categoryCode=" + categoryCode +
+                ", category=" + category +
                 ", orderableStatus='" + orderableStatus + '\'' +
                 '}';
     }

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ManyToOneAssociationTests {
-
     private static EntityManagerFactory emf;
     private static EntityManager em;
 
@@ -22,9 +21,8 @@ public class ManyToOneAssociationTests {
         em = emf.createEntityManager();
     }
 
-    /* 설명. 객체내의 다른 객체를 타고 들어가면서 탐색하는 것을 객체 그래프 탐색이라고 한다.(JOIN을 한번에 수행) - 단방향 */
     @Test
-    public void 다대일_연관관계_객체_그래프_탐색을_이용한_조회_테스트(){
+    public void 다대일_연관관계_객체_그래프_탐색을_이용한_조회_테스트() {
         int menuCode = 15;
 
         MenuAndCategory foundMenu = em.find(MenuAndCategory.class, menuCode);

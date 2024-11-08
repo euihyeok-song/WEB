@@ -13,7 +13,7 @@ public class ColumnMappingTests {
     private static EntityManager em;
 
     @BeforeAll
-    public static void intiFactory() {
+    public static void initFactory() {
         emf = Persistence.createEntityManagerFactory("jpatest");
     }
 
@@ -24,7 +24,6 @@ public class ColumnMappingTests {
 
     @Test
     public void 테이블_만들기_테스트() {
-        // 매핑된 대로 테이블을 만들고 insert, update한다.
 
         // given
         Member member = new Member();
@@ -32,10 +31,9 @@ public class ColumnMappingTests {
         member.setMemberId("user01");
         member.setMemberPwd("pass01");
         member.setNickname("홍길동");
-//        member.setPhone("010-1234-5678");     // default가 적용되는지 확인(선생님이 이따 찾아볼 예정)
         member.setEmail("hong@gmail.com");
         member.setAddress("서울시 서초구");
-        member.setEnrollDate(new java.util.Date());     // 진짜 시간만 넣어주는지 확인
+        member.setEnrollDate(new java.util.Date());
         member.setMemberRole("ROLE_MEMBER");
         member.setStatus("Y");
 
@@ -47,7 +45,6 @@ public class ColumnMappingTests {
 
         // then
         Member foundMember = em.find(Member.class, 1);
-        System.out.println("foundMember = " + foundMember);
         foundMember.setNickname("동해번쩍");
 
         tx.commit();
@@ -55,7 +52,7 @@ public class ColumnMappingTests {
     }
 
     @AfterEach
-    public void closeManager(){
+    public void closeManager() {
         em.close();
     }
 

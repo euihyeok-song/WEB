@@ -13,7 +13,7 @@ public class EntityMappingTests {
     private static EntityManager em;
 
     @BeforeAll
-    public static void intiFactory() {
+    public static void initFactory() {
         emf = Persistence.createEntityManagerFactory("jpatest");
     }
 
@@ -24,7 +24,6 @@ public class EntityMappingTests {
 
     @Test
     public void 테이블_만들기_테스트() {
-        // 매핑된 대로 테이블을 만들고 insert, update한다.
 
         // given
         Member member = new Member();
@@ -43,18 +42,18 @@ public class EntityMappingTests {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        em.persist(member);                                 // INSERT 날라간다.
+        em.persist(member);
 
         // then
-        Member foundMember = em.find(Member.class, 1);      // 위 와 동일한 놈(영속성 상태)인 놈을 뽑은 것
-        foundMember.setNickname("동해번쩍");                // UPDATE 한방 날라간다.(항상 하나의 업데이트로 날라간다.)
+        Member foundMember = em.find(Member.class, 1);
+        foundMember.setNickname("동해번쩍");
 
         tx.commit();
         assertEquals(member, foundMember);
     }
 
     @AfterEach
-    public void closeManager(){
+    public void closeManager() {
         em.close();
     }
 

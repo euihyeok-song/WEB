@@ -18,7 +18,7 @@ public class Member {
 
     @Id
     @Column(name="member_no")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)     // section03-> subsection01 이 부분 증명
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int memberNo;
 
     @Column(name="member_id")

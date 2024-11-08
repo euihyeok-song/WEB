@@ -18,8 +18,7 @@ public class CategoryAndMenu {
     @Column(name="ref_category_code")
     private Integer refCategoryCode;
 
-    /* 설명. 부모에게 억지로 자식을 넣어줌 -> 관계 주도권은 자식에게 있음 */
-    @JoinColumn(name="category_code")       // 자식의 category_code
+    @JoinColumn(name="category_code")
     @OneToMany
     private List<Menu> menuList;
 

@@ -18,7 +18,6 @@ public class Category {
     @Column(name="ref_category_code")
     private Integer refCategoryCode;
 
-    /* 설명. MappedBy에는 연관관계의 주인의 필드를 써준다. */
     @OneToMany(mappedBy="category")
     private List<Menu> menuList;
 
@@ -54,7 +53,7 @@ public class Category {
                 "categoryCode=" + categoryCode +
                 ", categoryName='" + categoryName + '\'' +
                 ", refCategoryCode=" + refCategoryCode +
-                ", menuList=" + menuList +
+                ", menuList=" + menuList.toString() +
                 '}';
     }
 }

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity(name="member_section05_subsection02")
 @Table(name="tbl_member_section05_subsection02")
-@IdClass(MemberPk.class)    // id 두개를 하나의 타입으로 정의 내린게 이겁니다.
+@IdClass(MemberPk.class)
 public class Member {
 
     @Id

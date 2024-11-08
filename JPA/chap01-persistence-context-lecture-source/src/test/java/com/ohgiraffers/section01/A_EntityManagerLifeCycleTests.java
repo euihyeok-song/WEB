@@ -4,20 +4,18 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
 
 public class A_EntityManagerLifeCycleTests {
     private static EntityManagerFactory emf;
     private static EntityManager em;
 
-    /* 설명. 딱 한번만 Factory를 사전에 만들어 줌(싱글톤)*/
     @BeforeAll
     public static void initFactory() {
         emf = Persistence.createEntityManagerFactory("jpatest");
     }
 
     @BeforeEach
-    public void initManager(){
+    public void initManager() {
         em = emf.createEntityManager();
     }
 
@@ -33,9 +31,8 @@ public class A_EntityManagerLifeCycleTests {
      *  엔티티 매니저(EntityManager)란?
      *   엔티티 매니저는 엔티티를 저장하는 메모리 상의 데이터베이스를 관리하는 인스턴스이다.
      *   엔티티를 저장하고, 수정, 삭제, 조회하는 등의 엔티티와 관련된 모든 일을 한다.
-     *   엔티티 매니저는 thread-safe하지 않기 때문에 동시성 문제(겹칠수 있다)가 발생할 수 있다.
+     *   엔티티 매니저는 thread-safe하지 않기 때문에 동시성 문제가 발생할 수 있다.
      *   따라서 스레드 간 공유를 하지 않고, web의 경우 일반적으로 request scope와 일치시킨다.
-     *   => Service에 @Transaction을 붙여주면 알아서 처리해줌
      *
      * 필기.
      *  영속성 컨텍스트(PersistenceContext)란?
@@ -45,29 +42,25 @@ public class A_EntityManagerLifeCycleTests {
      *   그리고 엔티티 매니저를 통해서 영속성 컨텍스트에 접근할 수 있고, 또 관리할 수 있다.
      * */
 
-
     @Test
-    public void 엔티티_매니저_팩토리와_엔티티_매니저_생명주기_확인1(){
+    public void 엔티티_매니저_팩토리와_엔티티_매니저_생명주기_확인1() {
         System.out.println("factory의 hashCode1: " + emf.hashCode());
         System.out.println("manager의 hashCode1: " + em.hashCode());
     }
 
     @Test
-    public void 엔티티_매니저_팩토리와_엔티티_매니저_생명주기_확인2(){
+    public void 엔티티_매니저_팩토리와_엔티티_매니저_생명주기_확인2() {
         System.out.println("factory의 hashCode2: " + emf.hashCode());
         System.out.println("manager의 hashCode2: " + em.hashCode());
     }
 
-    /* 설명. Manager들도 전부 Stream 개념이여서 다 쓰고 닫아줘야함 */
     @AfterEach
-    public void closeManager(){
+    public void closeManager() {
         em.close();
     }
 
     @AfterAll
-    public static void closeFactory(){
+    public static void closeFactory() {
         emf.close();
     }
-
-
 }

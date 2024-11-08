@@ -2,8 +2,6 @@ package com.ohgiraffers.section01.simple;
 
 import jakarta.persistence.*;
 
-/* 설명. Entity명을 추가하지 않으면 자동으로 클래스 이름으로 지정된다.
-    -> 실무에서는 Entity명이 겹칠일이 없으니 이름을 지정해주는 경우가 별로 없다*/
 @Entity
 @Table(name="tbl_menu")
 public class Menu {
@@ -66,4 +64,3 @@ public class Menu {
                 '}';
     }
 }
-

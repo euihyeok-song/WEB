@@ -1,6 +1,5 @@
 package com.ohgiraffers.section02.onetomany;
 
-import com.ohgiraffers.section01.manytoone.Category;
 import jakarta.persistence.*;
 
 @Entity(name="menu")
@@ -9,12 +8,14 @@ public class Menu {
 
     @Id
     @Column(name="menu_code")
-    private int menuCdoe;
+    private int menuCode;
+
+    @Column(name="menu_name")
+    private String menuName;
 
     @Column(name="menu_price")
     private int menuPrice;
 
-    /* 설명. 부모로 들어가게 되는 부분 */
     @Column(name="category_code")
     private int categoryCode;
 
@@ -24,15 +25,20 @@ public class Menu {
     public Menu() {
     }
 
-    public Menu(int menuCdoe, int menuPrice, int categoryCode, String orderableStatus) {
-        this.menuCdoe = menuCdoe;
+    public Menu(int menuCode, String menuName, int menuPrice, int categoryCode, String orderableStatus) {
+        this.menuCode = menuCode;
+        this.menuName = menuName;
         this.menuPrice = menuPrice;
         this.categoryCode = categoryCode;
         this.orderableStatus = orderableStatus;
     }
 
-    public int getMenuCdoe() {
-        return menuCdoe;
+    public int getMenuCode() {
+        return menuCode;
+    }
+
+    public String getMenuName() {
+        return menuName;
     }
 
     public int getMenuPrice() {
@@ -50,7 +56,8 @@ public class Menu {
     @Override
     public String toString() {
         return "Menu{" +
-                "menuCdoe=" + menuCdoe +
+                "menuCode=" + menuCode +
+                ", menuName='" + menuName + '\'' +
                 ", menuPrice=" + menuPrice +
                 ", categoryCode=" + categoryCode +
                 ", orderableStatus='" + orderableStatus + '\'' +

@@ -6,9 +6,8 @@ import java.util.Date;
 
 @Entity(name="member_section03_subsection02")
 @Table(name="tbl_member_section03_subsection02")
-// 테이블 이름, pk 컬럼 이름 설정(미리 번호를 만들어 번호를 만들어 놓는다.)
 @TableGenerator(
-        name="member_seq_table_generator",
+        name="member_seq_table_generatior",
         table="tbl_member_seq",
         pkColumnValue = "my_seq_member_no"
 )
@@ -16,7 +15,7 @@ public class Member {
 
     @Id
     @Column(name="member_no")
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "member_seq_table_generator")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "member_seq_table_generatior")
     private int memberNo;
 
     @Column(name="member_id")

@@ -13,7 +13,7 @@ public class IdClassTests {
     private static EntityManager em;
 
     @BeforeAll
-    public static void intiFactory() {
+    public static void initFactory() {
         emf = Persistence.createEntityManagerFactory("jpatest");
     }
 
@@ -22,7 +22,6 @@ public class IdClassTests {
         em = emf.createEntityManager();
     }
 
-    // 복합키 사용법2
     @Test
     public void 아이디_클래스_사용한_복합키_테이블_매핑_테스트() {
         Member member = new Member();
@@ -41,7 +40,7 @@ public class IdClassTests {
     }
 
     @AfterEach
-    public void closeManager(){
+    public void closeManager() {
         em.close();
     }
 

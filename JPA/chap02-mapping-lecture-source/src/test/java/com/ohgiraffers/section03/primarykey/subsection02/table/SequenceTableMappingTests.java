@@ -1,6 +1,9 @@
 package com.ohgiraffers.section03.primarykey.subsection02.table;
 
-import jakarta.persistence.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
@@ -12,7 +15,7 @@ public class SequenceTableMappingTests {
     private static EntityManager em;
 
     @BeforeAll
-    public static void intiFactory() {
+    public static void initFactory() {
         emf = Persistence.createEntityManagerFactory("jpatest");
     }
 
@@ -21,22 +24,21 @@ public class SequenceTableMappingTests {
         em = emf.createEntityManager();
     }
 
-    // 추가 테이블을 만들어 미리 번호를 만들어 놓는다.
     @Test
     public void 테이블_만들기_테스트() {
 
         // given
-        Member member1 = new Member();
-//        member1.setMemberNo(1);
-        member1.setMemberId("user01");
-        member1.setMemberPwd("pass01");
-        member1.setNickname("홍길동");
-        member1.setPhone("010-1234-5678");
-        member1.setEmail("hong@gmail.com");
-        member1.setAddress("서울시 서초구");
-        member1.setEnrollDate(new java.util.Date());
-        member1.setMemberRole("ROLE_MEMBER");
-        member1.setStatus("Y");
+        Member member = new Member();
+//        member.setMemberNo(1);
+        member.setMemberId("user01");
+        member.setMemberPwd("pass01");
+        member.setNickname("홍길동");
+        member.setPhone("010-1234-5678");
+        member.setEmail("hong@gmail.com");
+        member.setAddress("서울시 서초구");
+        member.setEnrollDate(new java.util.Date());
+        member.setMemberRole("ROLE_MEMBER");
+        member.setStatus("Y");
 
         Member member2 = new Member();
         member2.setMemberId("user02");
@@ -53,32 +55,25 @@ public class SequenceTableMappingTests {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        em.persist(member1);
+        em.persist(member);
         em.persist(member2);
 
         // then
         Member foundMember = em.find(Member.class, 1);
         foundMember.setNickname("동해번쩍");
 
-        tx.commit();        // 한번 commit()하게되면 그다음 select가 잘 안먹는다. 그래서 jpql을 쓴다.
-
-        // 이론상 commit()을 하면 새로운 영속성으로 가야하는데, 그렇지 않다.
-        // 그래서 jpql을 사용하면 또 따로 날라가서 가능~
+        tx.commit();
 
         /* 설명.
          *  이 예제에서 @GeneratedValue(strategy = GenerationType.IDENTITY)를 통해 auto_increment 개념을
          *  확인하기 위해 insert 작업 이후의 select이 필요하다.
-         *  그러기 위해서는 insert가 반드시 flush 되고 나서 select이 일어나야 되고 그 때 기본 설정인 FlushModeType.AUTO에 따라
+         *  그러기 위해서는 insert가 반드시 flush 되고 나서 select이 일어나야 되고 그 때 기본 설정인 FLushModeType.AUTO에 따라
          *  jpql 구문을 활용하면 jpql 실행 전 flush가 발생한다.(이미 insert 및 번호 생성 완료)
          *
          * 설명.
          *  또한, 다중행 조회를 위해서는 반드시 jpql을 활용해야 한다.(다만, Spring Data Jpa는 다중행 조회를 따로 제공함)
          * */
-
-        // jpql은 엔티티를 테이블 처럼 쓴다.
-        // 다중행 조회는 jpql만 가능, 그 전에 insert가 끝나면 잘 안먹어
-//        em.setFlushMode(FlushModeType.AUTO);    // commit시점에 flush가 되던지, jpql은 매번 쿼리가 날라간다.
-        // COMMIT : commit 시점에만 날라가라는 방법
+//        em.setFlushMode(FlushModeType.AUTO);
         String jpql = "SELECT A.memberNo FROM member_section03_subsection02 A";
         List<Integer> memberNoList = em.createQuery(jpql, Integer.class).getResultList();
         memberNoList.forEach(System.out::println);
@@ -88,7 +83,7 @@ public class SequenceTableMappingTests {
     }
 
     @AfterEach
-    public void closeManager(){
+    public void closeManager() {
         em.close();
     }
 

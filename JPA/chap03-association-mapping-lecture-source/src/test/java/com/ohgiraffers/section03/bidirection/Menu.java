@@ -8,7 +8,10 @@ public class Menu {
 
     @Id
     @Column(name="menu_code")
-    private int menuCdoe;
+    private int menuCode;
+
+    @Column(name="menu_name")
+    private String menuName;
 
     @Column(name="menu_price")
     private int menuPrice;
@@ -20,19 +23,23 @@ public class Menu {
     @Column(name="orderable_status")
     private String orderableStatus;
 
-
     public Menu() {
     }
 
-    public Menu(int menuCdoe, int menuPrice, Category category, String orderableStatus) {
-        this.menuCdoe = menuCdoe;
+    public Menu(int menuCode, String menuName, int menuPrice, Category category, String orderableStatus) {
+        this.menuCode = menuCode;
+        this.menuName = menuName;
         this.menuPrice = menuPrice;
         this.category = category;
         this.orderableStatus = orderableStatus;
     }
 
-    public int getMenuCdoe() {
-        return menuCdoe;
+    public int getMenuCode() {
+        return menuCode;
+    }
+
+    public String getMenuName() {
+        return menuName;
     }
 
     public int getMenuPrice() {
@@ -50,12 +57,11 @@ public class Menu {
     @Override
     public String toString() {
         return "Menu{" +
-                "menuCdoe=" + menuCdoe +
+                "menuCode=" + menuCode +
+                ", menuName='" + menuName + '\'' +
                 ", menuPrice=" + menuPrice +
-    //          ", categoryCode=" + categoryCode.toStirng() +  // 이런식으로 되어서 서로가 서로를 참조해서 계속 순환참조 발생 (삭제필요)
-                                                                // 엔티티가 엔티티를 막도록 구현됨
+//                ", category=" + category.toString() +
                 ", orderableStatus='" + orderableStatus + '\'' +
                 '}';
     }
-
 }

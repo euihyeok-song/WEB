@@ -6,15 +6,17 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class ProblemOfusingDirectSQLTests {
+import static org.junit.jupiter.api.Assertions.*;
+
+class ProblemOfUsingDirectSQLTests {
     private Connection con;
 
     @BeforeEach
     void setConnection() throws SQLException {
         String driver = "com.mysql.cj.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306/menudb";
-        String user = "root";
-        String password = "root";
+        String user = "swcamp";
+        String password = "swcamp";
 
         con = DriverManager.getConnection(url, user, password);
         con.setAutoCommit(false);
@@ -22,27 +24,26 @@ class ProblemOfusingDirectSQLTests {
 
     /* 필기.
      *  JDBC API를 이용해 직접 SQL을 다룰 때 발생할 수 있는 문제점
-     *  1. 데이터 변환, SQL 작성, JDBC API 코드 등을 중복 작성(개발시간 증가, 유지보수 저하 => sql이 수정되면 직접 수정해야함)
+     *  1. 데이터 변환, SQL 작성, JDBC API 코드 등을 중복 작성(개발시간 증가, 유지보수 저하)
      *  2. SQL에 의존하여 개발
      *  3. 패러다임 불일치(상속, 연관관계, 객체 그래프 탐색, 방향성)
      *  4. 동일성 보장 문제
-    */
+    * */
 
-    /* 설명. 코드가 길어져서 가독성이 떨어지며 오류를 잡기 힘든다. */
     @DisplayName("직접 SQL을 작성하여 메뉴를 조회할 때 발생하는 문제 확인")
     @Test
     void testDirectSelectSql() throws SQLException {
 
         // given
-        String query = "SELECT MENU_CODE, MENU_NAME, MENU_PRICE, CATEGORY_CODE, "
-                + "ORDERABLE_STATUS FROM TBL_MENU";
+        String query = "SELECT MENU_CODE, MENU_NAME, MENU_PRICE, CATEGORY_CODE, ORDERABLE_STATUS"
+                       + " FROM TBL_MENU";
 
         // when
         Statement stmt = con.createStatement();
         ResultSet rset = stmt.executeQuery(query);
 
         List<Menu> menuList = new ArrayList<>();
-        while(rset.next()){
+        while(rset.next()) {
             Menu menu = new Menu();
             menu.setMenuCode(rset.getInt("MENU_CODE"));
             menu.setMenuName(rset.getString("MENU_NAME"));
@@ -53,12 +54,11 @@ class ProblemOfusingDirectSQLTests {
             menuList.add(menu);
         }
 
-        // then - 출력해서 log를 찍어주기 위한 부분
+        // then
         Assertions.assertTrue(!menuList.isEmpty());
         menuList.forEach(System.out::println);
     }
-
-    /* 설명. 관계지향을 의미: 강경합이 일어나서 쿼리가 수정되면, 쿼리에 해당하는 모든걸 수정해야한다.*/
+    
     @DisplayName("직접 SQL을 작성하여 신규 메뉴를 추가할 때 발생하는 문제 확인")
     @Test
     void testDirectInsertSQL() throws SQLException {
@@ -70,25 +70,23 @@ class ProblemOfusingDirectSQLTests {
         menu.setCategoryCode(1);
         menu.setOrderableStatus("Y");
 
-        /* 설명. (상황) 쿼리에 강결합이 된 상태 -> 쿼리가 수정되면 연쇄적으로 수정해야 하는 문제가 발생한다. */
         String query = "INSERT INTO TBL_MENU(MENU_NAME, MENU_PRICE, CATEGORY_CODE, "
                 + "ORDERABLE_STATUS) VALUES (?, ?, ?, ?)";
 
-        //when
+        // when
         PreparedStatement pstmt = con.prepareStatement(query);
-        pstmt.setString(1,menu.getMenuName());
-        pstmt.setInt(2,menu.getMenuPrice());
-        pstmt.setInt(3,menu.getCategoryCode());
-        pstmt.setString(4,menu.getOrderableStatus());
+        pstmt.setString(1, menu.getMenuName());
+        pstmt.setInt(2, menu.getMenuPrice());
+        pstmt.setInt(3, menu.getCategoryCode());
+        pstmt.setString(4, menu.getOrderableStatus());
 
         int result = pstmt.executeUpdate();
 
-        //then
-        Assertions.assertEquals(1,result);
+        // then
+        Assertions.assertEquals(1, result);
         pstmt.close();
     }
-
-    /* 설명. 연관관계 문제 */
+    
     @DisplayName("연관된 객체 문제 확인")
     @Test
     void testAssociationObject() throws SQLException {
@@ -104,12 +102,12 @@ class ProblemOfusingDirectSQLTests {
         ResultSet rset = stmt.executeQuery(query);
 
         List<MenuAndCategory> menuAndCategories = new ArrayList<>();
-        while(rset.next()){
+        while(rset.next()) {
             MenuAndCategory menuAndCategory = new MenuAndCategory();
             menuAndCategory.setMenuCode(rset.getInt("MENU_CODE"));
             menuAndCategory.setMenuName(rset.getString("MENU_NAME"));
             menuAndCategory.setMenuPrice(rset.getInt("MENU_PRICE"));
-            menuAndCategory.setCategoryCode(new Category(rset.getInt("CATEGORY_CODE"),
+            menuAndCategory.setCategory(new Category(rset.getInt("CATEGORY_CODE"),
                     rset.getString("CATEGORY_NAME")));
             menuAndCategory.setOrderableStatus(rset.getString("ORDERABLE_STATUS"));
 
@@ -122,34 +120,34 @@ class ProblemOfusingDirectSQLTests {
     }
 
     /* 설명. 상속 문제
-    *   객체 지향 언어의 상속 개념과 유사한 것이 데이터베이스의 서브타입 엔티티이다.(서브 타입을 별도의 테이블로 나누었을 떄)
-    *   슈퍼타입의 모든 속성을 서브타입이 공유하지 못하여 물리적으로 다른 테이블로 분리가 된 형태이다.
-    *   (설계에 따라서는 다를 수 있다.)
-    *   하지만 객체지형의 상속은 슈퍼타입의 속성을 공유해서 사용하므로 여기에서 패러다임의 불일치가 발생한다.
+     *  객체 지향 언어의 상속 개념과 유사한 것이 데이터베이스의 서브타입 엔티티이다.(서브 타입을 별도의 테이블로 나누었을 때)
+     *  슈퍼타입의 모든 속성을 서브타입이 공유하지 못하여 물리적으로 다른 테이블로 분리가 된 형태이다.
+     *  (설계에 따라서는 다를 수 있다.)
+     *  하지만 객체지향의 상속은 슈퍼타입의 속성을 공유해서 사용하므로 여기에서 패러다임의 불일치가 발생한다.
     * */
 
-    /* 설명. 연관관계
-    *   객체지향에서 말하는 가지고 있는(ASSOCIATION 연관관꼐 혹은 COLLECTION 연관관계) 경우 데이터베이스 저장 구조와
-    *   다른 형태이다.
-    *
-    *  설명.
-    *   - 데이터베이스 테이블에 맞춘 객체 모델 (JPA로 조회하지 않으려면 , 중간객체를 선언하지 X)
-    *   public class Menu{
-    *     private int menuCode;
-    *     private String menuName;
-    *     private int menuPrice;
-    *     private int categoryCode;
-    *     private String orderableStatus;
-    *    }
-    *   - 객체 지향 언어에 맞춘 객체 모델 (JPA로 조회하려면 중간객체를 선언 O)
-    *   public class Menu{
-     *     private int menuCode;
-     *     private String menuName;
-     *     private int menuPrice;
-     *     private CategoryVO category;    // CategoryVO(setter없고, equals와 hashcode를 override 해야 함) - 순환참조 방지
-     *     private String orderableStatus;
-     *   }
-     * */
+    /* 설명. 연관 관계
+     *  객체지향에서 말하는 가지고 있는(ASSOCIATION 연관관계 혹은 COLLECTION 연관관계) 경우 데이터베이스 저장 구조와
+     *  다른 형태이다.
+     *
+     * 설명.
+     *  - 데이터베이스 테이블에 맞춘 객체 모델
+     *  public class Menu {
+     *    private int menuCode;
+     *    private String menuName;
+     *    private int menuPrice;
+     *    private int categoryCode;
+     *    private String orderableStatus;
+     *  }
+     *  - 객체 지향 언어에 맞춘 객체 모델
+     *  public class Menu {
+     *    private int menuCode;
+     *    private String menuName;
+     *    private int menuPrice;
+     *    private Category category;
+     *    private String orderableStatus;
+     *  }
+    *  */
 
     @DisplayName("조회한 두 개의 행을 담은 객체의 동일성 비교 테스트")
     @Test
@@ -175,26 +173,25 @@ class ProblemOfusingDirectSQLTests {
 
         Menu menu2 = null;
 
-        if(rset1.next()) {
+        if(rset2.next()) {
             menu2 = new Menu();
             menu2.setMenuCode(rset2.getInt("MENU_CODE"));
             menu2.setMenuName(rset2.getString("MENU_NAME"));
         }
 
-        // then -- 다른지 확인 (두 객체의 주소값이 다르면 초록불 띄도록 단정문 작성)
+        // then
         Assertions.assertNotEquals(menu1, menu2);
     }
 
-
     /* 설명.
-    *   JPA를 이용하면 동일 비교가 가능하다.
-    *   Menu menu1 = entityManager.find(Menu.class,12);
-    *   MEnu menu2 = entityMapper.find(Menu.class, 12);
-    *   System.out.prinln(menu1 == menu2) // true(동일성 보장된다. 같은 객체)
+     *  JPA를 이용하면 동일 비교가 가능하다.
+     *  Menu menu1 = entityManager.find(Menu.class, 12);
+     *  Menu menu2 = entityManager.find(Menu.class, 12);
+     *  System.out.println(menu1 == menu2) // true(동일성이 보장된다. 같은 객체)
     * */
 
     @AfterEach
-    void closeConenction() throws SQLException {
+    void closeConnection() throws SQLException {
         con.rollback();
         con.close();
     }

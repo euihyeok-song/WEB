@@ -16,10 +16,10 @@ public class MemberPk implements Serializable {
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        MemberPk memberPk = (MemberPk) object;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MemberPk memberPk = (MemberPk) o;
         return memberNo == memberPk.memberNo && Objects.equals(memberId, memberPk.memberId);
     }
 

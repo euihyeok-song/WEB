@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 
-// 객체 만들고 설정 class 태그에 설정하기
 @Entity(name="member_section02")
 @Table(name="tbl_member_section02")
 public class Member {
@@ -22,23 +21,19 @@ public class Member {
     @Column(name="nickname")
     private String nickname;
 
-    // 원하는 형태로 제약조건 설정하기!
-    @Column(name="phone", columnDefinition = "varchar(200) default '010-000-0000'")     // lombok 빌더로는 가능, but 이걸로 불가
-    private String phone = "010-000-0000";  // 그냥 이렇게도 초기화 가능
+    @Column(name="phone", columnDefinition = "varchar(200) default '010-000-0000'")
+    private String phone = "010-000-0000";
 
-    // 유니크 제약 조건다는 법
     @Column(name="email", unique = true)
     private String email;
 
-    // NOT NULL 제약 조건 달기
     @Column(name="address", nullable = false)
     private String address;
 
-    // DBMS마다 다르다. mariadb나 mysql은 datetime으로 된다.
     @Column(name="enroll_date")
-//    @Temporal(TemporalType.TIMESTAMP)         // datetime
-//    @Temporal(TemporalType.DATE)              // date
-    @Temporal(TemporalType.TIME)                // time
+//    @Temporal(TemporalType.TIMESTAMP)       // datetime
+//    @Temporal(TemporalType.DATE)            // date
+    @Temporal(TemporalType.TIME)              // time
     private java.util.Date enrollDate;
 
     @Column(name="member_role")
