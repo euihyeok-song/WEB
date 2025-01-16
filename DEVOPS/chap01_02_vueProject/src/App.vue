@@ -30,10 +30,13 @@
     // const response =  await fetch(`http://localhost:5173/api/plus?num1=${num1.value}&num2=${num2.value}`); 
 
     // 8055 docker container(8055:7777로 된 백엔드 서버 컨테이너)로 요청 시(백엔드에서 CORS 처리를 했을 경우)
-    const response = await fetch(`http://localhost:8056/plus?num1=${num1.value}&num2=${num2.value}`);
+    // const response = await fetch(`http://localhost:8056/plus?num1=${num1.value}&num2=${num2.value}`);
+
+    // 8055 docker container(8055:7777로 된 백엔드 서버 컨테이너)로 요청 시(프론트에서 CORS 처리를 했을 경우) - cors 처리 문제 발생 
+    // const response = await fetch(`http://localhost:8055/plus?num1=${num1.value}&num2=${num2.value}`);
 
     // 프론트에서 CORS 처리를 하고자 하는 경우(프론트 프로젝트가 컨테이너가 아닌 상태)
-    // const response =  await fetch(`http://localhost:5173/api/plus?num1=${num1.value}&num2=${num2.value}`);
+    const response =  await fetch(`http://localhost:5173/api/plus?num1=${num1.value}&num2=${num2.value}`);
 
     // 프론트에서 CORS 처리를 하고자 하는 경우(프론트 프로젝트가 컨테이너인 상태)
     // const response =  await fetch(`http://localhost:8011/api/plus?num1=${num1.value}&num2=${num2.value}`); 
@@ -54,3 +57,4 @@
     text-align: center;
   }
 </style>
+
