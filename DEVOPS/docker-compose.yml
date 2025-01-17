@@ -1,13 +1,15 @@
 # Docker Compose 사용 (1_Docker 개요.md 참고)
-
 services:
   # 가질 이름
   springboot-app:
     build: 
       context: ./chap01_01_bootProject
       dockerfile: Dockerfile
+    # image 이름 지정
     image: kappie074/boot_9_project:v1
+    # Container 이름 지정
     container_name: boot-container
+    platform: linux/amd64
     ports:
       - "8055:7777"
     networks:
@@ -18,8 +20,11 @@ services:
     build:
       context: ./chap01_02_vueProject
       dockerfile: Dockerfile
+    # image 이름 지정
     image: kappie074/vue_9_project:v1
+    # Container 이름 지정 
     container_name: vue-container
+    platform: linux/amd64  
     ports:
       - "8011:5173"
     networks:
